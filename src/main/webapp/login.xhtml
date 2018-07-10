@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+  <title>Login</title>
+  <h:outputStylesheet name="/css/login.css" />
+
+
+</h:head>
+
+<h:body>
+    <div class="grandParentContaniner">
+
+        <h2>NOVA Hibabejelentő és -követő rendszer</h2>
+        <h:form prependId="false" id="loginForm">
+            <p:panelGrid id="loginGrid" styleClass="ui-fluid center ui-noborder">
+                <h2>Bejelentkezés</h2>
+                <div class="ui-inputgroup" style="padding-bottom: 5px">
+                    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                    <p:inputText size="30" id="username" placeholder="Felhasználónév" required="true" />
+                </div>
+                <div class="ui-inputgroup" style="padding-bottom: 5px;">
+                    <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+                    <p:password size="30" id="password" placeholder="Jelszó" required="true" requiredMessage="A jelszó megadása kötelező!" />
+                </div>
+                <div class="ui-g" style="margin-left: 10px">
+                    <div class="ui-g-4"><p:commandButton value="Belépés" ajax="false" icon="ui-icon-power" /></div>
+                    <div class="ui-g-4"> <p:button value="Regisztráció" ajax="false" icon="ui-icon-person" outcome="/registration/registration.xhtml"/></div>
+                </div>
+            </p:panelGrid>
+            <p:outputLabel style="padding-bottom:3px">&nbsp;</p:outputLabel>
+            <p:outputLabel value="Érvénytelen felhasználónév vagy jelszó!" style="color: #F44336; padding-top: 40px; font-weight: bold"
+                           rendered="${!empty param['error']}" />
+        </h:form>
+
+    </div>
+
+</h:body>
+</html>

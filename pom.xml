@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.gdf.diplomamunka.gaborbeke</groupId>
+	<artifactId>nova</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Nova</name>
+	<description>Error notification and tracker system</description>
+
+
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
+
+	<parent>
+		<groupId>org.joinfaces</groupId>
+		<artifactId>joinfaces-parent</artifactId>
+		<version>3.2.0</version>
+		<relativePath/>
+	</parent>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<!-- Spring Boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- CDI Managed Beans JSF 2.3 -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Joinfaces -->
+		<dependency>
+			<groupId>org.joinfaces</groupId>
+			<artifactId>primefaces-spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- OCPsoft URL Rewrite-->
+		<dependency>
+
+			<groupId>org.apache.tomcat.embed</groupId>
+
+			<artifactId>tomcat-embed-jasper</artifactId>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.ocpsoft.rewrite</groupId>
+
+			<artifactId>rewrite-servlet</artifactId>
+
+			<version>3.4.1.Final</version>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.ocpsoft.rewrite</groupId>
+
+			<artifactId>rewrite-integration-faces</artifactId>
+
+			<version>3.4.1.Final</version>
+
+		</dependency>
+
+
+		<!--ProjectLombok-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.16</version>
+		</dependency>
+
+		<!-- MySQL connector -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.44</version>
+		</dependency>
+
+		<!-- Primefaces theme -->
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- Rewrite only scans for WEB-INF/classes folder -->
+		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<plugins>
+			<!-- spring-boot-maven-plugin -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

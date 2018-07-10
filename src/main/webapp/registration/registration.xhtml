@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+    <title>Regisztráció</title>
+    <h:outputStylesheet name="/css/register.css" />
+    <h:outputScript library="js" name="/locale/hu/calendar/calendar_hu.js" />
+</h:head>
+
+<h:body>
+
+<div id="outer">
+    <div id="container">
+    <h:form>
+        <p:growl id="growl" showDetail="true" showSummary="false" sticky="false" />
+        <p:panel header="Regisztráció a NOVA rendszerbe" style="align-content: center">
+
+                <h:panelGrid columns="1"  cellpadding="1" layout="grid" columnClasses="label, value" style=" width: 370px" id="registerGrid" >
+                    <h:outputText value="Vezetéknév: *" />
+                    <p:inputText id="firstname" value="#{registrationController.user.firstname}" required="true" requiredMessage="A vezetéknév megadása kötelező!"  label="Vezetéknév" size="40"/>
+                    <p:message for="firstname" />
+                    <h:outputText value="#{registrationController.user.firstname}" />
+
+                    <h:outputText value="Keresztnév: *" />
+                    <p:inputText id="lastname" value="#{registrationController.user.lastname}" required="true" requiredMessage="A keresztnév megadása kötelező!"  label="Keresztnév" size="40"/>
+                    <p:message for="lastname" />
+                    <h:outputText value="#{registrationController.user.lastname}" />
+
+                    <h:outputText value="Születési dátum: *" />
+                    <p:calendar locale="hu" navigator="true" value="#{registrationController.user.dateofbirth}" styleClass="dateTimeField" id="dateofbirth" required="true" requiredMessage="A születési dátum megadása kötelező!" placeholder="Év-Hónap-Nap" pattern="yyyy-MM-dd" mask="true"></p:calendar>
+                    <p:message for="dateofbirth" />
+                    <h:outputText value="#{registrationController.user.dateofbirth}" />
+
+                    <h:outputText value="Felhasználónév: *" />
+                    <p:inputText value="#{registrationController.user.username}" required="true" requiredMessage="A felhasználónév megadása kötelező!" label="Felhasználónév" size="40" id="username"/>
+                    <p:message for="username" />
+                    <h:outputText value="#{registrationController.user.username}" />
+
+                    <h:outputText value="Jelszó: *" />
+                    <p:password value="#{registrationController.user.password}" required="true" requiredMessage="A jelszó megadása kötelező!" label="Jelszó" match="passwordAgain" validatorMessage="A két jelszó nem egyezik!" size="40" id="password"/>
+                    <p:message for="password" />
+                    <h:outputText value="#{registrationController.user.password}" />
+
+                    <h:outputText value="Jelszó mégegyszer: *" />
+                    <p:password value="#{registrationController.passwordAgain}" required="true" label="Jelszó mégegyszer" requiredMessage="A jelszó újra megadása kötelező!" size="40" id="passwordAgain" />
+                    <p:message for="passwordAgain"/>
+                    <h:outputText value="#{registrationController.passwordAgain}" />
+
+                    <h:outputText value="Email cím: *" />
+                    <p:inputText value="#{registrationController.user.email}" required="true" requiredMessage="Az email cím megadása kötelező!" validatorMessage="Érvénytelen email cím!" label="Email cím" size="40" id="email">
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                    </p:inputText>
+                    <p:message for="email"/>
+                    <h:outputText value="#{registrationController.user.email}" />
+
+                    <h:outputText value="Szerepkör: *" />
+                    <p:selectOneMenu id="roleSelector" value="#{registrationController.user.role}" style="width:160px" required="true" requiredMessage="A szerepkör választása kötelező!">
+                        <f:selectItem itemLabel="Kérem válasszon" itemValue="" />
+                        <f:selectItems value="#{registrationController.roles}" />
+                    </p:selectOneMenu>
+                    <p:message for="roleSelector"/>
+                    <h:outputText value="#{registrationController.user.role}" />
+
+
+                    <p:commandButton value="Regisztráció" id="ajax" action="#{registrationController.register()}" styleClass="ui-priority-primary" validateClient="true" update="growl" life="1500"/>
+
+                </h:panelGrid>
+            </p:panel>
+    </h:form>
+        <div align="center" style="padding-top: 10px">
+            <p:button outcome="/login.xhtml" value="Visszalépés a főoldalra bejelentkezéshez" styleClass="ui-priority-primary"/>
+        </div>
+    </div>
+</div>
+
+</h:body>
+</html>
