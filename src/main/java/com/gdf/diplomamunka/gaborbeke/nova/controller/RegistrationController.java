@@ -31,11 +31,15 @@ public class RegistrationController {
     private List<String> roles;
     private String passwordAgain;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final RegistrationValidationService registrationValidationService;
 
     @Autowired
-    private RegistrationValidationService registrationValidationService;
+    public RegistrationController(RegistrationValidationService registrationValidationService, UserService userService) {
+        this.registrationValidationService = registrationValidationService;
+        this.userService = userService;
+    }
 
 
     @PostConstruct

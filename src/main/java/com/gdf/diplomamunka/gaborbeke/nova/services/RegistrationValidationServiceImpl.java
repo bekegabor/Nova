@@ -16,16 +16,17 @@ import java.util.List;
 @Data
 public class RegistrationValidationServiceImpl implements RegistrationValidationService {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     private User user;
 
+    private final ValidatorChain validatorChain;
+
     @Autowired
-    private ValidatorChain validatorChain;
+    public RegistrationValidationServiceImpl(UserService userService, ValidatorChain validatorChain){
 
-    public RegistrationValidationServiceImpl(){
-
+        this.userService = userService;
+        this.validatorChain = validatorChain;
     }
 
 
