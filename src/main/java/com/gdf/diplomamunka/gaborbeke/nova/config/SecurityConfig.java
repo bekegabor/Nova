@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
   @Autowired
-  UserDetailsService userDetailsService;
+  private UserDetailsService userDetailsService;
 
   @Bean
   public PasswordEncoder passwordEncoder() {

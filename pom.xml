@@ -31,6 +31,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -72,31 +74,20 @@
 
 		<!-- OCPsoft URL Rewrite-->
 		<dependency>
-
 			<groupId>org.apache.tomcat.embed</groupId>
-
 			<artifactId>tomcat-embed-jasper</artifactId>
-
 		</dependency>
 
 		<dependency>
-
 			<groupId>org.ocpsoft.rewrite</groupId>
-
 			<artifactId>rewrite-servlet</artifactId>
-
 			<version>3.4.1.Final</version>
-
 		</dependency>
 
 		<dependency>
-
 			<groupId>org.ocpsoft.rewrite</groupId>
-
 			<artifactId>rewrite-integration-faces</artifactId>
-
 			<version>3.4.1.Final</version>
-
 		</dependency>
 
 
