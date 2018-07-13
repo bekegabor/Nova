@@ -22,27 +22,35 @@
 
                 <h:panelGrid columns="1"  cellpadding="1" layout="grid" columnClasses="label, value" style=" width: 370px" id="registerGrid" >
                     <h:outputText value="Vezetéknév: *" />
-                    <p:inputText id="firstname" value="#{registrationController.user.firstname}" required="true" requiredMessage="A vezetéknév megadása kötelező!"  label="Vezetéknév" size="40"/>
+                    <p:inputText id="firstname" value="#{registrationController.user.firstname}" required="true" requiredMessage="A vezetéknév megadása kötelező!"  label="Vezetéknév" size="40" validatorMessage="A szóköz nem elfogadott érték!">
+                        <f:validateRegex pattern="[^ ]*" />
+                    </p:inputText>
                     <p:message for="firstname" />
                     <h:outputText value="#{registrationController.user.firstname}" />
 
                     <h:outputText value="Keresztnév: *" />
-                    <p:inputText id="lastname" value="#{registrationController.user.lastname}" required="true" requiredMessage="A keresztnév megadása kötelező!"  label="Keresztnév" size="40"/>
+                    <p:inputText id="lastname" value="#{registrationController.user.lastname}" required="true" requiredMessage="A keresztnév megadása kötelező!"  label="Keresztnév" size="40" validatorMessage="A szóköz nem elfogadott érték!">
+                        <f:validateRegex pattern="[^ ]*" />
+                    </p:inputText>
                     <p:message for="lastname" />
                     <h:outputText value="#{registrationController.user.lastname}" />
 
                     <h:outputText value="Születési dátum: *" />
-                    <p:calendar locale="hu" navigator="true" value="#{registrationController.user.dateofbirth}" styleClass="dateTimeField" id="dateofbirth" required="true" requiredMessage="A születési dátum megadása kötelező!" placeholder="Év-Hónap-Nap" pattern="yyyy-MM-dd" mask="true"></p:calendar>
+                    <p:calendar locale="hu" navigator="true" value="#{registrationController.user.dateofbirth}" styleClass="dateTimeField" id="dateofbirth"  yearRange="c-100:c-18" required="true" requiredMessage="A születési dátum megadása kötelező!" placeholder="Év-Hónap-Nap" pattern="yyyy-MM-dd" mask="true"></p:calendar>
                     <p:message for="dateofbirth" />
                     <h:outputText value="#{registrationController.user.dateofbirth}" />
 
                     <h:outputText value="Felhasználónév: *" />
-                    <p:inputText value="#{registrationController.user.username}" required="true" requiredMessage="A felhasználónév megadása kötelező!" label="Felhasználónév" size="40" id="username"/>
+                    <p:inputText value="#{registrationController.user.username}" required="true" requiredMessage="A felhasználónév megadása kötelező!" label="Felhasználónév" size="40" id="username" validatorMessage="A szóköz nem elfogadott érték!">
+                        <f:validateRegex pattern="[^ ]*" />
+                    </p:inputText>
                     <p:message for="username" />
                     <h:outputText value="#{registrationController.user.username}" />
 
                     <h:outputText value="Jelszó: *" />
-                    <p:password value="#{registrationController.user.password}" required="true" requiredMessage="A jelszó megadása kötelező!" label="Jelszó" match="passwordAgain" validatorMessage="A két jelszó nem egyezik!" size="40" id="password"/>
+                    <p:password value="#{registrationController.user.password}" required="true" requiredMessage="A jelszó megadása kötelező!" label="Jelszó" match="passwordAgain" validatorMessage="A két jelszó nem egyezik!" size="40" id="password">
+                        <f:validator binding="#{passwordValidator}" />
+                    </p:password>
                     <p:message for="password" />
                     <h:outputText value="#{registrationController.user.password}" />
 

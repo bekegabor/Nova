@@ -8,6 +8,7 @@ public class Credential {
     private String username;
     private String email;
 
+
     public Credential(String username, String email){
         this.username = username;
         this.email = email;

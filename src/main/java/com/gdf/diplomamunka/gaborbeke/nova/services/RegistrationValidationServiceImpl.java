@@ -2,8 +2,8 @@ package com.gdf.diplomamunka.gaborbeke.nova.services;
 
 import com.gdf.diplomamunka.gaborbeke.nova.model.User;
 import com.gdf.diplomamunka.gaborbeke.nova.validator.Credential;
-import com.gdf.diplomamunka.gaborbeke.nova.validator.Validator;
-import com.gdf.diplomamunka.gaborbeke.nova.validator.ValidatorChain;
+import com.gdf.diplomamunka.gaborbeke.nova.validator.CustomValidator;
+import com.gdf.diplomamunka.gaborbeke.nova.validator.CustomValidatorChain;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,12 @@ public class RegistrationValidationServiceImpl implements RegistrationValidation
     private final UserService userService;
 
     private User user;
+    private List<CustomValidator> validators;
 
-    private final ValidatorChain validatorChain;
+    private final CustomValidatorChain validatorChain;
 
     @Autowired
-    public RegistrationValidationServiceImpl(UserService userService, ValidatorChain validatorChain){
+    public RegistrationValidationServiceImpl(UserService userService, CustomValidatorChain validatorChain){
 
         this.userService = userService;
         this.validatorChain = validatorChain;
@@ -32,10 +33,10 @@ public class RegistrationValidationServiceImpl implements RegistrationValidation
 
     @PostConstruct
     public void init(){
-        Validator usernameEmailValidator = new Validator("Ez a felhasználónév és email cím már regisztrálva van!", credential -> userService.getUserByUsername(credential.getUsername()).isPresent() && userService.getUserByEmail(credential.getEmail()).isPresent());
-        Validator usernameValidator = new Validator("Ez a felhasználónév már regisztrálva van!", credential -> userService.getUserByUsername(credential.getUsername()).isPresent());
-        Validator emailValidator = new Validator("Ez az email cím már regisztrálva van!", credential -> userService.getUserByEmail(credential.getEmail()).isPresent());
-        List<Validator> validators = Arrays.asList(usernameEmailValidator, usernameValidator, emailValidator);
+        CustomValidator<Credential> usernameEmailValidator = new CustomValidator("Ez a felhasználónév és email cím már regisztrálva van!", credential -> userService.getUserByUsername(((Credential)credential).getUsername()).isPresent() && userService.getUserByEmail(((Credential)credential).getEmail()).isPresent());
+        CustomValidator<Credential> usernameValidator = new CustomValidator("Ez a felhasználónév már regisztrálva van!", credential -> userService.getUserByUsername(((Credential)credential).getUsername()).isPresent());
+        CustomValidator<Credential> emailValidator = new CustomValidator("Ez az email cím már regisztrálva van!", credential -> userService.getUserByEmail(((Credential)credential).getEmail()).isPresent());
+        validators = Arrays.asList(usernameEmailValidator, usernameValidator, emailValidator);
         validatorChain.setValidators(validators);
     }
 
@@ -44,6 +45,8 @@ public class RegistrationValidationServiceImpl implements RegistrationValidation
     public Boolean isValidRegistrationCredentials() {
         return validatorChain.isValid(new Credential(user.getUsername(), user.getEmail()));
     }
+
+
 
     @Override
     public String getErrorMessage() {
