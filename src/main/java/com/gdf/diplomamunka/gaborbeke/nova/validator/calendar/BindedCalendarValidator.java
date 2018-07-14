@@ -1,5 +1,6 @@
 package com.gdf.diplomamunka.gaborbeke.nova.validator.calendar;
 
+import com.gdf.diplomamunka.gaborbeke.nova.converter.LocalDateConverter;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +20,7 @@ import java.util.List;
 
 @Data
 @ManagedBean
-public class BindedCalendarValidator implements Validator {
+public class BindedCalendarValidator implements Validator, LocalDateConverter {
 
     private LocalDate minimumDate = LocalDate.now().minusYears(100);
     private LocalDate maximumDate = LocalDate.now().minusYears(18);
@@ -32,7 +33,6 @@ public class BindedCalendarValidator implements Validator {
     public BindedCalendarValidator(DateOfBirthValidatorChain dateOfBirthValidatorChain) {
         this.dateOfBirthValidatorChain = dateOfBirthValidatorChain;
     }
-
 
     @Override
     public void validate(FacesContext facesContext, UIComponent uiComponent, Object object) throws ValidatorException {
@@ -50,8 +50,5 @@ public class BindedCalendarValidator implements Validator {
             return Arrays.asList(dateofBirthValidator);
         }
 
-        private LocalDate fromDate(Date date){
-            Instant instant = Instant.ofEpochMilli(date.getTime());
-            return LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-        }
+
     }
