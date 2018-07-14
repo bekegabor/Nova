@@ -1,9 +1,10 @@
 package com.gdf.diplomamunka.gaborbeke.nova.services;
 
 import com.gdf.diplomamunka.gaborbeke.nova.model.User;
-import com.gdf.diplomamunka.gaborbeke.nova.validator.Credential;
-import com.gdf.diplomamunka.gaborbeke.nova.validator.UsernameAndEmailValidator;
-import com.gdf.diplomamunka.gaborbeke.nova.validator.UsernameAndEmailValidatorChain;
+import com.gdf.diplomamunka.gaborbeke.nova.validator.calendar.DateOfBirthValidatorChain;
+import com.gdf.diplomamunka.gaborbeke.nova.validator.credential.Credential;
+import com.gdf.diplomamunka.gaborbeke.nova.validator.credential.UsernameAndEmailValidator;
+import com.gdf.diplomamunka.gaborbeke.nova.validator.credential.UsernameAndEmailValidatorChain;
 import com.gdf.diplomamunka.gaborbeke.nova.validator.password.Password;
 import com.gdf.diplomamunka.gaborbeke.nova.validator.password.PasswordValidatorChain;
 import lombok.Data;
@@ -25,14 +26,16 @@ public class RegistrationValidationServiceImpl implements RegistrationValidation
 
     private final UsernameAndEmailValidatorChain usernameAndEmailValidatorChain;
     private final PasswordValidatorChain passwordValidatorChain;
+    private final DateOfBirthValidatorChain dateOfBirthValidatorChain;
 
 
     @Autowired
-    public RegistrationValidationServiceImpl(UserService userService, UsernameAndEmailValidatorChain usernameAndEmailValidatorChain, PasswordValidatorChain bindedPasswordValidator, PasswordValidatorChain passwordValidatorChain){
+    public RegistrationValidationServiceImpl(UserService userService, UsernameAndEmailValidatorChain usernameAndEmailValidatorChain, PasswordValidatorChain passwordValidatorChain, DateOfBirthValidatorChain dateofBirthValidatorChain){
 
         this.userService = userService;
         this.usernameAndEmailValidatorChain = usernameAndEmailValidatorChain;
         this.passwordValidatorChain = passwordValidatorChain;
+        this.dateOfBirthValidatorChain = dateofBirthValidatorChain;
 
     }
 
@@ -55,6 +58,11 @@ public class RegistrationValidationServiceImpl implements RegistrationValidation
     @Override
     public Boolean isValidPassword() {
         return passwordValidatorChain.isValid(new Password(user.getPassword()));
+    }
+
+    @Override
+    public Boolean isValidDateOfBirth() {
+        return null;
     }
 
 

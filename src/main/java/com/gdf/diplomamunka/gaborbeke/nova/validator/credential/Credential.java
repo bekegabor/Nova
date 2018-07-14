@@ -1,4 +1,4 @@
-package com.gdf.diplomamunka.gaborbeke.nova.validator;
+package com.gdf.diplomamunka.gaborbeke.nova.validator.credential;
 
 import lombok.Data;
 

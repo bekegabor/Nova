@@ -50,13 +50,13 @@ public class RegistrationController {
     public void register(){
         registrationValidationService.setUser(user);
         FacesContext context = FacesContext.getCurrentInstance();
-        if (registrationValidationService.isValidUsernameAndEmail() && registrationValidationService.isValidPassword()){
+        if (registrationValidationService.isValidUsernameAndEmail() && registrationValidationService.isValidPassword() && registrationValidationService.isValidDateOfBirth()){
             userService.createUser(user);
             user = new User();
             context.addMessage(null, new FacesMessage("", "Sikeres regisztráció! Most már bejelentkezhet a rendszerbe!") );
             return;
         }
-        if (registrationValidationService.isValidPassword()) {
+        if (registrationValidationService.isValidPassword() && registrationValidationService.isValidDateOfBirth()) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Érvénytelen regisztráció!", registrationValidationService.getErrorMessage()));
         }
     }

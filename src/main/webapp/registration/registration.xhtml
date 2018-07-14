@@ -36,7 +36,9 @@
                     <h:outputText value="#{registrationController.user.lastname}" />
 
                     <h:outputText value="Születési dátum: *" />
-                    <p:calendar locale="hu" navigator="true" value="#{registrationController.user.dateofbirth}" styleClass="dateTimeField" id="dateofbirth"  yearRange="c-100:c-18" required="true" requiredMessage="A születési dátum megadása kötelező!" placeholder="Év-Hónap-Nap" pattern="yyyy-MM-dd" mask="true"></p:calendar>
+                    <p:calendar locale="hu" navigator="true" value="#{registrationController.user.dateofbirth}" styleClass="dateTimeField" id="dateofbirth"  yearRange="c-100:c-18" required="true" requiredMessage="A születési dátum megadása kötelező!" placeholder="Év-Hónap-Nap" pattern="yyyy-MM-dd" mask="true">
+                        <f:validator binding="#{bindedCalendarValidator}" />
+                    </p:calendar>
                     <p:message for="dateofbirth" />
                     <h:outputText value="#{registrationController.user.dateofbirth}" />
 
