@@ -3,7 +3,7 @@ package com.gdf.diplomamunka.gaborbeke.nova.validator.password;
 import lombok.Data;
 
 @Data
-public class Password {
+public class Password{
 
     private String password;
 

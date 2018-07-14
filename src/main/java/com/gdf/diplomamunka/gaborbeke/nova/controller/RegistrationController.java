@@ -10,7 +10,6 @@ import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -51,14 +50,15 @@ public class RegistrationController {
     public void register(){
         registrationValidationService.setUser(user);
         FacesContext context = FacesContext.getCurrentInstance();
-        if (registrationValidationService.isValidRegistrationCredentials()){
+        if (registrationValidationService.isValidUsernameAndEmail() && registrationValidationService.isValidPassword()){
             userService.createUser(user);
             user = new User();
             context.addMessage(null, new FacesMessage("", "Sikeres regisztráció! Most már bejelentkezhet a rendszerbe!") );
             return;
         }
-
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Érvénytelen regisztráció!", registrationValidationService.getErrorMessage()) );
+        if (registrationValidationService.isValidPassword()) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Érvénytelen regisztráció!", registrationValidationService.getErrorMessage()));
+        }
     }
 
 }
