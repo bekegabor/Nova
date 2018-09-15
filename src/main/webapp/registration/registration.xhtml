@@ -38,9 +38,15 @@
                     <h:outputText value="Születési dátum: *" />
                     <p:calendar locale="hu" navigator="true" value="#{registrationController.user.dateofbirth}" styleClass="dateTimeField" id="dateofbirth" required="true" requiredMessage="A születési dátum megadása kötelező!" placeholder="Év-Hónap-Nap" pattern="yyyy-MM-dd" mask="true">
                         <f:validator binding="#{bindedCalendarValidator}" />
+                        <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
                     </p:calendar>
                     <p:message for="dateofbirth" />
                     <h:outputText value="#{registrationController.user.dateofbirth}" />
+
+                    <!--This needed, otherwise when clicking on registration the password and username fields are autofilled by the browser-->
+                    <input name="dummyinput" id="dummyinput" type="text" style="display: none"/>
+
+                    <input name="dummypassword" type="password" id="dummypassword" style="display: none"/>
 
                     <h:outputText value="Felhasználónév: *" />
                     <p:inputText value="#{registrationController.user.username}" required="true" requiredMessage="A felhasználónév megadása kötelező!" label="Felhasználónév" size="40" id="username" validatorMessage="A szóköz nem elfogadott érték!">
@@ -69,9 +75,10 @@
                     <h:outputText value="#{registrationController.user.email}" />
 
                     <h:outputText value="Szerepkör: *" />
-                    <p:selectOneMenu id="roleSelector" value="#{registrationController.user.role}" style="width:160px" required="true" requiredMessage="A szerepkör választása kötelező!">
+                    <p:selectOneMenu id="roleSelector" value="#{registrationController.user.role}" style="width:180px" required="true" requiredMessage="A szerepkör választása kötelező!">
                         <f:selectItem itemLabel="Kérem válasszon" itemValue="" />
                         <f:selectItems value="#{registrationController.roles}" />
+                        <f:converter converterId="com.gdf.diplomamunka.gaborbeke.nova.converter.RoleConverter" />
                     </p:selectOneMenu>
                     <p:message for="roleSelector"/>
                     <h:outputText value="#{registrationController.user.role}" />

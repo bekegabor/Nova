@@ -1,5 +1,6 @@
 package com.gdf.diplomamunka.gaborbeke.nova.services;
 
+import com.gdf.diplomamunka.gaborbeke.nova.enums.Role;
 import com.gdf.diplomamunka.gaborbeke.nova.model.User;
 import com.gdf.diplomamunka.gaborbeke.nova.persistance.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -46,37 +45,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 
     @Override
-    public void deleteUser(User user) {
-
+    public void updateUserEnabledStatusByUsername(int statusFlag, String username) {
+        userRepository.updateUserEnabledStatusByUsername(statusFlag, username);
     }
 
     @Override
-    public void deactivateUser(User user) {
-
-    }
-
-    @Override
-    public void activateUser(User user) {
-
-    }
-
-    @Override
-    public List<User> getAllUser() {
-        return null;
-    }
-
-    @Override
-    public List<User> getAllActiveUser() {
-        return null;
-    }
-
-    @Override
-    public List<User> getAllDeactivatedUser() {
-        return null;
+    public void updateUserRoleByUsername(String role, String username) {
+        userRepository.updateUserRoleByUsername(role, username);
     }
 
     @Override
@@ -87,6 +67,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<String> getEmployees() {
+        return userRepository.findAllByRole(Role.EMPLOYEE.getRoleName());
+    }
+
+    @Override
+    public List<User> getEmployeesToAssign() {
+        return userRepository.findAllEmployee();
+    }
+
+    @Override
+    public List<String> getUsers() {
+        return userRepository.findAllByRole(Role.USER.getRoleName());
+    }
+
+    @Override
+    public List<String> getBlockedUsers() {
+        return userRepository.findAllBlockedUsers();
     }
 
 

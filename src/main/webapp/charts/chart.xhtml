@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+    <p:chart type="line" value="#{chartJsView.lineModel1}" style="width:500px;height:300px" widgetVar="chart"/>
+
+    <p:commandButton type="button" value="Export" icon="ui-icon-extlink" onclick="exportChart()"/>
+
+    <p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Chart as an Image" resizable="false">
+        <p:outputPanel id="output" layout="block" style="width:500px;height:300px"/>
+    </p:dialog>
+
+    <script type="text/javascript">
+        function exportChart() {
+            //export image
+            $('#output').empty().append(PF('chart').exportAsImage());
+
+            //show the dialog
+            PF('dlg').show();
+        }
+    </script>
+
+</h:body>
+</html>

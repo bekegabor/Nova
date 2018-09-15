@@ -1,6 +1,5 @@
 package com.gdf.diplomamunka.gaborbeke.nova.services;
 
-import com.gdf.diplomamunka.gaborbeke.nova.converter.LocalDateConverter;
 import com.gdf.diplomamunka.gaborbeke.nova.model.User;
 import com.gdf.diplomamunka.gaborbeke.nova.validator.calendar.DateOfBirth;
 import com.gdf.diplomamunka.gaborbeke.nova.validator.calendar.DateOfBirthValidatorChain;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Service
 @Data
-public class RegistrationValidationServiceImpl implements RegistrationValidationService, LocalDateConverter {
+public class RegistrationValidationServiceImpl implements RegistrationValidationService{
 
     private final UserService userService;
 
@@ -64,7 +63,7 @@ public class RegistrationValidationServiceImpl implements RegistrationValidation
 
     @Override
     public Boolean isValidDateOfBirth() {
-        return dateOfBirthValidatorChain.isValid(new DateOfBirth(fromDate(user.getDateofbirth())));
+        return dateOfBirthValidatorChain.isValid(new DateOfBirth(user.getDateofbirth()));
     }
 
 

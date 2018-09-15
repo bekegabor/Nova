@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 html,
 body {
@@ -19,10 +18,16 @@ body {
     color: #663399;
     padding: 15px 25px;
     width: 100%;
-    max-width: 450px;
+    max-width: 460px;
     position: absolute;
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
 }
 
+.ui-widget-content{
+    width: -moz-fit-content !important;
+}
+.ui-inputfield{
+    width: 393px;
+}

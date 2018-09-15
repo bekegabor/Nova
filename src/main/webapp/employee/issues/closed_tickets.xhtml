@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/employee/home.xhtml">
+
+    <ui:define name="content">
+        <p:growl id="statusChangedToCloseMessage" showDetail="true" showSummary="false" life="3000" redisplay="false"/>
+        <h:form id="ticketsForm">
+            <p:panel header="Lezárt hibajegyek" id="tablePanel">
+                <p:dataTable id="ticketsTable" binding="#{closedTicketsController.dataTableTickets}" value="#{closedTicketsController.tickets}" selection="#{closedTicketsController.selectedTicket}" var="ticket" emptyMessage="Önnek jelenleg nincs hibajegye!" rowKey="#{ticket.id}" selectionMode="single" rows="5" paginator="true">
+                    <p:ajax event="rowSelect" listener="#{closedTicketsController.onRowSelect}"/>
+                    <p:column headerText="Id" >
+                        <h:outputText value="#{ticket.id}" />
+                    </p:column>
+
+                    <p:column headerText="Szolgáltatás megnevezése">
+                        <h:outputText value="#{ticket.subject}" />
+                    </p:column>
+
+                    <p:column headerText="Csatolmány">
+                        <h:outputText value="#{ticket.attachment.fileName}" />
+                    </p:column>
+
+                    <p:column headerText="Hibajegy státusza" style="text-align: center;">
+                        <h:outputText value="#{ticket.status}" style="color: #2ECC71; font-weight: bold"/>
+                    </p:column>
+
+                    <p:column headerText="Műveletek" id="editColumn" style="text-align: center;padding-left: 5px;">
+                        <p:commandButton action="#{closedTicketsController.selectTicketAndPreviewMode(ticket)}" oncomplete="PF('editTicketDialog').show();" update=":ticketsForm" value="Megnyitás" title="Szerkesztés" renderDisabledClick="true" style="padding-right: 5px">
+                            <p:resetInput target=":ticketsForm" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Igen" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Mégse" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+        <p:dialog header="Hibajegy nézet" widgetVar="editTicketDialog" modal="true" height="600" width="1000" position="center center" resizable="false" dynamic="true" id="editTicketDialog" closable="false">
+            <h:panelGroup id="ticketDetail">
+                <p:panelGrid  columns="2"  id="ticketPanelGrid" >
+
+                    <h:outputText value="Id:" style="font-size: medium"/>
+                    <p:inputText value="#{closedTicketsController.selectedTicket.id}" disabled="true" style="width: 756px"/>
+
+                    <h:outputText value="Szolgáltatás megnevezése:" style="font-size: medium"/>
+                    <p:inputText id="subject" value="#{closedTicketsController.selectedTicket.subject}" style="width: 756px">
+                    </p:inputText>
+
+                    <h:outputText value="Probléma részletes leírása:" style="font-size: medium"/>
+                    <pe:ckEditor id="content" width="766" widgetVar="editor" value="#{closedTicketsController.selectedTicket.content}" height="300" style="margin-bottom:10px; width: 756px" validatorMessage="A szóköz nem elfogadott érték!" required="true" requiredMessage="A probléma részletes leírásának kitöltése kötelező!"
+                                 toolbar="[['Cut','Copy','Paste','PasteText','-','Format','Font','FontSize','-',
+                        'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-',
+                        'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl','-',
+                        'TextColor','Link','Unlink','-','RemoveFormat']]">
+                    </pe:ckEditor>
+
+                    <h:outputText value="Melléklet:" style="font-size: medium"/>
+                    <h:outputText value="#{closedTicketsController.selectedTicket.attachment.fileName}" style="width: 746px" />
+
+                </p:panelGrid>
+            </h:panelGroup>
+
+            <p:panel>
+                <p:button value="Bezárás"  styleClass="ui-button-text ui-c" style="margin-right: 10px" includeViewParams="true" />
+                <p:commandButton value="Melléklet megtekintése" oncomplete="#{closedTicketsController.dialogToExecute}" update="#{closedTicketsController.dialogHeaderTypeToModify}" style="margin-right: 10px" disabled="#{closedTicketsController.isPreviewDisabled}"/>
+            </p:panel>
+        </p:dialog>
+
+
+
+        <!-- PDF preview dialog -->
+        <p:dialog header="#{closedTicketsController.selectedTicket.attachment.fileName}" showEffect="fade" hideEffect="fade" widgetVar="pdfAttachmentPreviewDialog" modal="true" height="530" width="1000" position="center center" resizable="false" dynamic="true" id="pdfAttachmentPreviewDialog" closable="true">
+            <f:facet name="header">
+                <h:outputText id="pdfAttachmentPreviewDialogHeader" value="#{openTicketController.selectedTicket.attachment.fileName}"/>
+            </f:facet>
+            <p:media value="#{closedTicketsController.pdfAttachmentForPreview}" cache="false" player="pdf" width="970" height="500"/>
+        </p:dialog>
+
+        <!-- JPEG/JPG preview dialog -->
+        <p:dialog header="#{closedTicketsController.selectedTicket.attachment.fileName}" showEffect="fade" hideEffect="fade" widgetVar="jpegAttachmentPreviewDialog" modal="true" height="600" width="1000" position="center center" resizable="false" dynamic="true" id="jpegAttachmentPreviewDialog" closable="true">
+            <f:facet name="header">
+                <h:outputText id="jpegAttachmentPreviewDialogHeader" value="#{closedTicketsController.selectedTicket.attachment.fileName}"/>
+            </f:facet>
+            <p:graphicImage value="#{closedTicketsController.jpegAttachmentForPreview}" stream="true"/>
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>
+</html>
+

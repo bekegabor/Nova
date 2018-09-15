@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -33,11 +34,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-
         if (user.isPresent()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(user.get().getRole().toString()));
-            return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), grantedAuthorities);
+            grantedAuthorities.add(new SimpleGrantedAuthority(user.get().getRole().getRole()));
+            return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), user.get().isEnabled(), user.get().isAccountNonExpired(), user.get().isCredentialsNonExpired(), user.get().isAccountNonLocked(), grantedAuthorities);
         }
         return new org.springframework.security.core.userdetails.User(" ", passwordEncoder.encode(" "), grantedAuthorities);
         }
+
 }

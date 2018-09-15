@@ -58,6 +58,49 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-context -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-context</artifactId>
+			<version>2.0.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<version>2.0.1.RELEASE</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>3.0.9.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring5</artifactId>
+			<version>3.0.9.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-java8time</artifactId>
+			<version>3.0.1.RELEASE</version>
+		</dependency>
+
 		<!-- CDI Managed Beans JSF 2.3 -->
 		<dependency>
 			<groupId>javax.enterprise</groupId>
@@ -70,6 +113,16 @@
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>primefaces-spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- Primefaces Extensions-->
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>resources-ckeditor</artifactId>
 		</dependency>
 
 		<!-- OCPsoft URL Rewrite-->
@@ -97,6 +150,14 @@
 			<artifactId>lombok</artifactId>
 			<version>1.16.16</version>
 		</dependency>
+
+		<!--Apache Common Langs-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.7</version>
+		</dependency>
+
 
 		<!-- MySQL connector -->
 		<dependency>

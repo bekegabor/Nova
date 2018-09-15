@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,9 +31,7 @@ public class RegistrationController {
     private User user = new User();
     private List<String> roles;
     private String passwordAgain;
-
     private final UserService userService;
-
     private final RegistrationValidationService registrationValidationService;
 
     @Autowired
@@ -40,25 +40,25 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-
     @PostConstruct
     public void init() {
         roles = Stream.of(Role.values()).map(Role::name).collect(Collectors.toList());
-
     }
 
-    public void register(){
+    public String register(){
         registrationValidationService.setUser(user);
         FacesContext context = FacesContext.getCurrentInstance();
         if (registrationValidationService.isValidUsernameAndEmail() && registrationValidationService.isValidPassword() && registrationValidationService.isValidDateOfBirth()){
             userService.createUser(user);
             user = new User();
             context.addMessage(null, new FacesMessage("", "Sikeres regisztráció! Most már bejelentkezhet a rendszerbe!") );
-            return;
+            context.getExternalContext().getFlash().setKeepMessages(true);
+            return "/login?faces-redirect=true";
         }
         if (registrationValidationService.isValidPassword() && registrationValidationService.isValidDateOfBirth()) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Érvénytelen regisztráció!", registrationValidationService.getErrorMessage()));
         }
-    }
 
+        return "";
+    }
 }

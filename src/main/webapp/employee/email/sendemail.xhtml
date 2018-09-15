@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/employee/home.xhtml">
+    <ui:define name="content">
+        <h:form id="emailForm">
+            <p:growl id="sendEmailMessage" showDetail="true" showSummary="false" autoUpdate="true"/>
+            <p:panel header="Email küldés" id="emailPanel">
+                <h:panelGrid columns="3" style="align-content: center">
+
+                    <p:outputLabel value="Tárgy:"/>
+                    <p:inputText id="subject" value="#{emailSendController.mail.subject}" placeholder="Kérem adja meg az üzenet tárgyát" style="width: 900px" requiredMessage="A levél tárgyának megadása kötelező" required="true" validatorMessage="A szóköz nem elfogadott érték!"/>
+                    <p:outputLabel style="display: none"/>
+
+                    <p:outputLabel value="Címzett:"/>
+                    <p:selectOneMenu value="#{emailSendController.mail.sendTo}"  editable="true"  style="width: 874px" id="emailselectone" widgetVar="emailselectone" placeholder="Kérem válasszon vagy gépelje be  az email címet" required="true" requiredMessage="A címzett megadása kötelező!" validatorMessage="Érvénytelen email cím!">
+                        <f:selectItems value="#{emailSendController.contactEmails}" />
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                    </p:selectOneMenu>
+                    <p:outputLabel style="display: none"/>
+
+                    <p:outputLabel value="Üzenet:" />
+                    <pe:ckEditor width="910"  value = "#{emailSendController.mail.message}" id="contentEditor"  height="500"  style="margin-bottom:10px;"
+                                   toolbar="[['Cut','Copy','Paste','PasteText','-','Format','Font','FontSize','-',
+                         'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-',
+                         'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl','-',
+                         'TextColor','Link','Unlink','-','RemoveFormat']]" validatorMessage="A szóköz nem elfogadott érték!" required="true" requiredMessage="Az üzenet nem lehet üres!"/>
+                    <p:outputLabel style="display: none"/>
+
+                    <p:commandButton value="Elküldés" action="#{emailSendController.validateAndSendEmail()}" styleClass="ui-priority-primary" validateClient="true" ajax="false" update="sendEmailMessage" life="1500">
+                        <p:resetInput target=":emailForm" />
+                    </p:commandButton>
+                    <p:button value="Mégse"  styleClass="ui-button-text ui-c ui-priority-primary" style="margin-right: 10px" outcome="/employee/home.xhtml" />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>

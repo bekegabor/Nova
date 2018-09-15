@@ -5,23 +5,47 @@
 	  xmlns:f="http://xmlns.jcp.org/jsf/core"
 	  xmlns:p="http://primefaces.org/ui">
 <f:view>
-<h:head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title><ui:insert name="title">Default title</ui:insert></title>
-</h:head>
-<h:body>
-	<div class="ui-g">
-		<div class="ui-g-12">
-			<p:growl for="errors" showDetail="true" autoUpdate="true"/>
+	<h:head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title><ui:insert name="title">Default title</ui:insert></title>
+		<h:outputStylesheet name="/css/jquery.growl.css" />
+		<h:outputScript library="js" name="jquery.growl.js" />
+	</h:head>
+	<h:body>
+
+		<div class="ui-g">
+			<div class="ui-g-12">
+				<p:growl for="errors" showDetail="true" autoUpdate="true"/>
+			</div>
+			<div class="ui-g-12">
+				<h:form>
+					<p:growl id="message" showDetail="true" life="3000" widgetVar="growlALL"/>
+					<p:menubar>
+
+						<p:submenu label="Hibabejelentés" >
+							<p:menuitem value="Új hibajegy létrehozása"  />
+							<p:separator />
+							<p:menuitem value="Hibajegyeim" />
+						</p:submenu>
+						<f:facet name="options">
+
+							<p:menuButton value="Beállítások" style="margin-right: 5px" icon="ui-icon-gear">
+								<p:menuitem value="Felhasználó fiók" icon="ui-icon-disk"/>
+								<p:separator />
+								<p:menuitem value="NOVA Theme választás" icon="ui-icon-arrowrefresh-1-w"/>
+							</p:menuButton>
+							<p:button value="Kijelentkezés" ajax="false" icon="ui-icon-extlink" href="logout"/>
+						</f:facet>
+					</p:menubar>
+				</h:form>
+			</div>
+			<div class="ui-g-12">
+				<ui:insert name="content">Default content</ui:insert>
+			</div>
 		</div>
-		<div class="ui-g-12">
-		</div>
-		<div class="ui-g-12">
-			<ui:insert name="content">Default content</ui:insert>
-		</div>
-	</div>
-</h:body>
+	</h:body>
 </f:view>
 </html>
+

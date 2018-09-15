@@ -14,27 +14,31 @@
 </h:head>
 
 <h:body>
-    <div class="grandParentContaniner">
+    <p:growl id="message" showDetail="true" showSummary="false" life="3000" redisplay="false"/>
+    <div>
+        <h:graphicImage library="images" name="nova.png" style="display: block; margin-left: auto; margin-right: auto"/>
+        <h:graphicImage library="images" name="nova_text.png" style="display: block; margin-left: auto; margin-right: auto"/>
+    </div>
+    <div class="grandParentContaniner" style="margin-top: 30px">
 
-        <h2>NOVA Hibabejelentő és -követő rendszer</h2>
         <h:form prependId="false" id="loginForm">
             <p:panelGrid id="loginGrid" styleClass="ui-fluid center ui-noborder">
-                <h2>Bejelentkezés</h2>
+
                 <div class="ui-inputgroup" style="padding-bottom: 5px">
                     <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-                    <p:inputText size="30" id="username" placeholder="Felhasználónév" required="true" />
+                    <p:inputText size="35" id="username" placeholder="Felhasználónév" required="true" />
                 </div>
                 <div class="ui-inputgroup" style="padding-bottom: 5px;">
                     <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
-                    <p:password size="30" id="password" placeholder="Jelszó" required="true" requiredMessage="A jelszó megadása kötelező!" />
+                    <p:password size="35" id="password" placeholder="Jelszó" required="true" requiredMessage="A jelszó megadása kötelező!" />
                 </div>
-                <div class="ui-g" style="margin-left: 10px">
-                    <div class="ui-g-4"><p:commandButton value="Belépés" ajax="false" icon="ui-icon-power" /></div>
-                    <div class="ui-g-4"> <p:button value="Regisztráció" ajax="false" icon="ui-icon-person" outcome="/registration/registration.xhtml"/></div>
+                <div class="ui-g">
+                    <div class="ui-g-6"><p:commandButton value="Bejelentkezés" ajax="false" icon="ui-icon-power" styleClass="ui-priority-primary" style="width:170px" /></div>
+                    <div class="ui-g-6"> <p:button value="Regisztráció" ajax="false" icon="ui-icon-person" outcome="/registration/registration.xhtml" styleClass="ui-priority-primary"/></div>
                 </div>
             </p:panelGrid>
             <p:outputLabel style="padding-bottom:3px">&nbsp;</p:outputLabel>
-            <p:outputLabel value="Érvénytelen felhasználónév vagy jelszó!" style="color: #F44336; padding-top: 40px; font-weight: bold"
+            <p:outputLabel value="${SPRING_SECURITY_LAST_EXCEPTION.message}" style="color: #F44336; padding-top: 40px; font-weight: bold"
                            rendered="${!empty param['error']}" />
         </h:form>
 

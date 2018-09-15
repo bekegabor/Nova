@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/admin/home.xhtml">
+    <ui:define name="content">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <h:outputStylesheet library="css" name="terminal.css"  />
+        <title><ui:insert name="title"></ui:insert></title>
+    </h:head>
+
+            <h:form>
+                <p:focus for="terminal" />
+                <p:terminal id="terminal"  styleClass="ui-terminal"  widgetVar="term" commandHandler="#{consoleController.handleCommand}"
+                            welcomeMessage="NOVA Terminál | Az elérhető parancsok listázása: help" style="background-color: blue; color: yellow"  prompt="#:"/>
+                <p:commandButton type="button" value="Törlés" icon="ui-icon-trash" onclick="PF('term').clear()" style="margin-top:10px"/>
+            </h:form>
+        <p:commandButton id="statisticButton" widgetVar="statisticButton" style="display: none" value="Statisztika" icon="ui-icon-extlink" action="#{consoleController.updateChart}" update=":statisticDialog" oncomplete="PF('statisticDialog').show()"/>
+        <p:commandButton id="helpButton" widgetVar="helpButton" style="display: none" value="Súgó" icon="ui-icon-extlink" action="#{consoleController.createHelpWindow}" update=":helpDialog" oncomplete="PF('helpDialog').show()"/>
+
+        <p:dialog widgetVar="statisticDialog" id="statisticDialog" showEffect="fade" modal="true" header="Hibajegy statisztika" resizable="false">
+        <p:panelGrid columns="1">
+            <p:chart type="pie" model="#{consoleController.pieModel}" style="width:400px;height:300px" />
+            <p:chart type="bar" model="#{consoleController.barModel}" style="width:900px;height:400px" widgetVar="chart"/>
+        </p:panelGrid>
+    </p:dialog>
+
+        <p:dialog widgetVar="helpDialog" id="helpDialog" showEffect="fade" modal="true" header="Konzol parancsok" resizable="false">
+            <ui:repeat value="#{consoleController.helpContent}" var="value">
+                #{value} <br />
+            </ui:repeat>
+
+
+        </p:dialog>
+
+</ui:define>
+</ui:composition>
+</html>
+
+

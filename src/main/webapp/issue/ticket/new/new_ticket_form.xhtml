@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/user/home.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="newTicketForm" enctype="multipart/form-data">
+
+            <p:growl id="newTicketMessages" showDetail="true" showSummary="false" autoUpdate="true"/>
+
+            <p:panel header="Új hibajegy létrehozása">
+                <h:panelGrid columns="2" style="align-content: center">
+                    <p:outputLabel value="Szolgáltatás megnevezése: "></p:outputLabel>
+                    <p:inputText id="subject" value="#{newTicketController.ticket.subject}" style="width: 1000px" requiredMessage="A szolgáltatás megnevezése kötelező" required="true" validatorMessage="A szóköz nem elfogadott érték!">
+                    </p:inputText>
+                    <p:outputLabel value="Probléma részletes leírása: " />
+                     <pe:ckEditor   width="1010" id="contentEditor" value="#{newTicketController.ticket.content}" height="600"  style="margin-bottom:10px;" validatorMessage="A szóköz nem elfogadott érték!" required="true" requiredMessage="A probléma részletes leírásának kitöltése kötelező!"
+                         toolbar="[['Cut','Copy','Paste','PasteText','-','Format','Font','FontSize','-',
+                         'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-',
+                         'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl','-',
+                         'TextColor','Link','Unlink','-','RemoveFormat']]"/>
+
+                    <p:outputLabel value="Mellékletek feltöltése: " />
+                    <p:fileUpload value="#{newTicketController.uploadedFile}" auto="false" mode="simple" dragDropSupport="false" update="newTicketMessages" id="fileUpload" required="false">
+                        <f:validator binding="#{bindedUploadedFileValidator}" />
+                    </p:fileUpload>
+                    <p:commandButton value="Elküldés" action="#{newTicketController.save()}" styleClass="ui-priority-primary" validateClient="true" update="newTicketMessages" life="1500" ajax="false"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+</html>

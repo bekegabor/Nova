@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Hozzárendelés</title>
+    <style type="text/css">
+        .ui-widget {
+            font-size: 90%;
+        }
+    </style>
+</h:head>
+<h:body>
+    <h:form id="selectAssigneForm">
+            <p:selectOneMenu id="statusSelector" value="#{assignIssueController.selectedUser}" style="width:180px">
+                <f:selectItems value="#{assignIssueController.availableEmployees}" />
+            </p:selectOneMenu>
+            <p:commandButton id="assignButton" value="Hozzárendelés" actionListener="#{assignIssueController.test}" style="margin-right: 10px" ajax="false"/>
+    </h:form>
+</h:body>
+</html>
