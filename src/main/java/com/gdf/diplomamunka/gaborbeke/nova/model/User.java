@@ -49,10 +49,6 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean enabled = true;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isAccountNonLocked = true;
 
     @Column(nullable = false)
