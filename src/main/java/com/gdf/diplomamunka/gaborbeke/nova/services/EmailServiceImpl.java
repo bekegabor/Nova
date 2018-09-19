@@ -45,7 +45,7 @@ public class EmailServiceImpl implements EmailService {
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
         final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
         message.setFrom(new InternetAddress(senderEmail, "Nova alkalmazott", "UTF-8"));
-        message.setTo(new InternetAddress(mail.getSendTo(), "Gubics Andrea", "UTF-8"));
+        message.setTo(new InternetAddress(mail.getSendTo(), "Teszt Elek", "UTF-8"));
         message.setSubject(mail.getSubject());
         message.setText(htmlContent, true);
         this.mailSender.send(mimeMessage);
