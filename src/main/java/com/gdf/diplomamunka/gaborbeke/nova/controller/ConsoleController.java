@@ -83,7 +83,7 @@ public class ConsoleController {
     @IgnorePostback
     public void triggerPostContruct(){}
 
-    public String handleCommand(String command, String[] params) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException, InstantiationException, IOException, URISyntaxException {
+    public String handleCommand(String command, String[] params) throws IOException, URISyntaxException {
         if (!isValidConsoleCommand(command)) {
             return "Nem létező parancs: " + command;
         }
@@ -174,9 +174,9 @@ public class ConsoleController {
             }
                 for (int j=0; j<3; j++){
                     List<TicketStatisticDTO> currentInnerList = currentInnerMap.get(statuses.get(j));
-                    String currentStatus = currentInnerList.get(0).getStatus();
+                    String currentStatus = Objects.isNull(currentInnerList)? statuses.get(j):currentInnerList.get(0).getStatus();
                     ChartSeries currentChartSeries = chartSeriesMaps.get(currentStatus);
-                    currentChartSeries.set(months[i-1], currentInnerList.get(0).getCount());
+                    currentChartSeries.set(months[i-1], Objects.isNull(currentInnerList)? 0:currentInnerList.get(0).getCount());
                 }
             }
 
