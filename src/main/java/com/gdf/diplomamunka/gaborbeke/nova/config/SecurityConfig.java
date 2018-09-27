@@ -21,10 +21,6 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
-
-import static com.sun.xml.internal.ws.encoding.SOAPBindingCodec.UTF8_ENCODING;
-
 @Configuration
 @EnableWebSecurity
 @Component
