@@ -7,8 +7,6 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 
 import java.util.concurrent.TimeUnit;
 
-import static com.sun.xml.internal.ws.encoding.SOAPBindingCodec.UTF8_ENCODING;
-
 @Configuration
 public class AuthenticationErrorMessageLocalizationConfiguration {
 
