@@ -3,16 +3,26 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-xmlns:pe="http://primefaces.org/ui/extensions">
+      xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/user/home.xhtml">
 
     <ui:define name="content">
         <h:form id="ticketsForm">
             <p:growl id="ticketsFormGrowlMessages" showDetail="true" showSummary="false" autoUpdate="true"/>
             <p:panel header="Hibajegyeim" id="tablePanel">
-                <p:dataTable id="ticketsTable" binding="#{userTicketsController.dataTableTickets}" value="#{userTicketsController.tickets}" selection="#{userTicketsController.selectedTicket}" var="ticket" emptyMessage="Önnek jelenleg nincs hibajegye!" rowKey="#{ticket.id}" selectionMode="single" rows="10" paginator="true">
+                <p:dataTable id="ticketsTable"
+                             binding="#{userTicketsController.dataTableTickets}"
+                             value="#{userTicketsController.tickets}"
+                             selection="#{userTicketsController.selectedTicket}"
+                             var="ticket" emptyMessage="Önnek jelenleg nincs hibajegye!"
+                             rowKey="#{ticket.id}"
+                             selectionMode="single"
+                             rows="10"
+                             paginator="true">
+
                     <p:ajax event="rowSelect" listener="#{userTicketsController.onRowSelect}"/>
                     <p:column headerText="Id" >
                         <h:outputText value="#{ticket.id}" />
@@ -31,10 +41,17 @@ xmlns:pe="http://primefaces.org/ui/extensions">
                     </p:column>
 
                     <p:column headerText="Műveletek" id="editColumn" style="text-align: center;padding-left: 5px;">
-                        <p:commandButton action="#{userTicketsController.selectTicketAndPreviewMode(ticket)}" oncomplete="PF('editTicketDialog').show();" update=":editTicketForm, :ticketsForm" value="Szerkesztés" title="Szerkesztés" renderDisabledClick="true" style="padding-right: 5px">
-                            <p:resetInput target=":ticketsForm" />
 
+                        <p:commandButton action="#{userTicketsController.selectTicketAndPreviewMode(ticket)}"
+                                         oncomplete="PF('editTicketDialog').show();"
+                                         update=":editTicketForm, :ticketsForm"
+                                         value="Szerkesztés"
+                                         title="Szerkesztés"
+                                         renderDisabledClick="true"
+                                         style="padding-right: 5px">
+                            <p:resetInput target=":ticketsForm" />
                         </p:commandButton>
+
                         <p:commandButton value="Hibajegy törlése" style="padding-left: 5px" actionListener="#{userTicketsController.deleteTicket}"  update=":#{p:component('ticketsFormGrowlMessages')}, :ticketsForm">
                             <p:confirm header="Hibajegy törlése" message="Biztosan törölni akarja a hibajegyet?" icon="ui-icon-alert" />
                         </p:commandButton>
@@ -82,14 +99,28 @@ xmlns:pe="http://primefaces.org/ui/extensions">
                 <p:panel>
                     <p:commandButton id="saveButton" value="Mentés" action="#{userTicketsController.validateAndSaveTicketModifications}" oncomplete="PF('editTicketDialog').hide();" style="margin-right: 10px" type="submit" update="ticketsForm:tablePanel, :#{p:component('editErrorGrowlMessages')}" process="@this,fileUpload,subject,content" partialSubmit="true" ajax="false" validateClient="true"/>
                     <p:button value="Mégse"  styleClass="ui-button-text ui-c" style="margin-right: 10px" includeViewParams="true" />
-                    <p:commandButton value="Melléklet megtekintése" oncomplete="#{userTicketsController.dialogToExecute}" update="#{userTicketsController.dialogHeaderTypeToModify}" style="margin-right: 10px" disabled="#{userTicketsController.isPreviewDisabled}"/>
+
+                    <p:commandButton value="Melléklet megtekintése"
+                                     oncomplete="#{userTicketsController.dialogToExecute}"
+                                     update="#{userTicketsController.dialogHeaderTypeToModify}"
+                                     style="margin-right: 10px"
+                                     disabled="#{userTicketsController.isPreviewDisabled}"/>
                 </p:panel>
             </p:dialog>
 
         </h:form>
 
         <!-- PDF preview dialog -->
-        <p:dialog header="#{userTicketsController.selectedTicket.attachment.fileName}" showEffect="fade" hideEffect="fade" widgetVar="pdfAttachmentPreviewDialog" modal="true" height="530" width="1000" position="center center" resizable="false" dynamic="true" id="pdfAttachmentPreviewDialog" closable="true">
+        <p:dialog header="#{userTicketsController.selectedTicket.attachment.fileName}"
+                  showEffect="fade"
+                  hideEffect="fade"
+                  widgetVar="pdfAttachmentPreviewDialog"
+                  modal="true" height="530"
+                  width="1000" position="center center"
+                  resizable="false"
+                  dynamic="true"
+                  id="pdfAttachmentPreviewDialog"
+                  closable="true">
             <f:facet name="header">
                 <h:outputText id="pdfAttachmentPreviewDialogHeader" value="#{userTicketsController.selectedTicket.attachment.fileName}"/>
             </f:facet>

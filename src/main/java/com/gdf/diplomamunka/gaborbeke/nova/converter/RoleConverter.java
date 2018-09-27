@@ -21,3 +21,4 @@ public class RoleConverter implements Converter {
         return role.getRole();
     }
 }
+

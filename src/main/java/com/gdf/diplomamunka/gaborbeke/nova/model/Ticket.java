@@ -16,7 +16,6 @@ import java.util.Objects;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.AUTO;
 
-
 @Entity
 public class Ticket {
 

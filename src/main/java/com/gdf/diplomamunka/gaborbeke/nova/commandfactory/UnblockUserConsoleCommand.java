@@ -14,8 +14,6 @@ public class UnblockUserConsoleCommand implements ConsoleCommand {
         this.consoleService = consoleService;
     }
 
-    public UnblockUserConsoleCommand(){}
-
     @Override
     public String execute() {
         return consoleService.unblockUser(arguments[0]);

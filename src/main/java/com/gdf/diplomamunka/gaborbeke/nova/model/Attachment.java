@@ -41,3 +41,4 @@ public class Attachment {
     @Column(nullable = false, name = "file_size")
     private long fileSize;
 }
+

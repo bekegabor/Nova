@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class BlockUserConsoleCommand implements ConsoleCommand {
-
     private ConsoleService consoleService;
     private String[] arguments;
 

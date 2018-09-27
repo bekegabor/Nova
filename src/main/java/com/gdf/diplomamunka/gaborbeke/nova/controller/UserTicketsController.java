@@ -157,7 +157,6 @@ public class UserTicketsController {
         this.selectedTicket = selectedTicket;
         selectedTicket = (Ticket) dataTableTickets.getRowData();
         dataTableTickets.setSelection(selectedTicket);
-
         if (Objects.nonNull(selectedTicket.getAttachment())){
             this.isPreviewDisabled = false;
             String fileType = StringUtils.getFilenameExtension(selectedTicket.getAttachment().getFileName());
@@ -209,7 +208,6 @@ public class UserTicketsController {
       }
 
     public StreamedContent getPdfAttachmentForPreview() throws SQLException {
-
         Blob blob = selectedTicket.getAttachment().getAttachment();
         byte[] attachmentBytes = selectedTicket.getAttachment().getAttachment().getBytes(1, (int)blob.length());
         ByteArrayInputStream attachmentInputStream = new ByteArrayInputStream(attachmentBytes);
