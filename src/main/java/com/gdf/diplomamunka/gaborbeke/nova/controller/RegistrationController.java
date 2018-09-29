@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,6 +30,7 @@ public class RegistrationController {
 
     private User user = new User();
     private List<String> roles;
+    private Map<String, String> roleDictionary;
     private String passwordAgain;
     private final UserService userService;
     private final RegistrationValidationService registrationValidationService;
@@ -42,10 +43,15 @@ public class RegistrationController {
 
     @PostConstruct
     public void init() {
-        roles = Stream.of(Role.values()).map(Role::name).collect(Collectors.toList());
+        roles = Stream.of(Role.values()).map(Role::getUserFriendlyRole).collect(Collectors.toList());
+        roleDictionary = new HashMap<>();
+        roleDictionary.put("Felhasználó", Role.USER.getRoleName());
+        roleDictionary.put("Alkalmazott", Role.EMPLOYEE.getRoleName());
+        roleDictionary.put("Rendszergazda", Role.ADMIN.getRoleName());
     }
 
     public String register(){
+        user.setRole(new com.gdf.diplomamunka.gaborbeke.nova.model.Role(roleDictionary.get(user.getRole().getRole())));
         registrationValidationService.setUser(user);
         FacesContext context = FacesContext.getCurrentInstance();
         if (registrationValidationService.isValidUsernameAndEmail() && registrationValidationService.isValidPassword() && registrationValidationService.isValidDateOfBirth()){

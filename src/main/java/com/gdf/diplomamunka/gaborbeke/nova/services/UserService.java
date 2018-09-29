@@ -1,5 +1,6 @@
 package com.gdf.diplomamunka.gaborbeke.nova.services;
 
+import com.gdf.diplomamunka.gaborbeke.nova.enums.Status;
 import com.gdf.diplomamunka.gaborbeke.nova.model.User;
 
 import java.util.List;
@@ -20,5 +21,6 @@ public interface UserService {
     List<User> getEmployeesToAssign();
     List<String> getUsers();
     List<String> getBlockedUsers();
+    String getUserFriendlyStatus(Status status);
 
 }

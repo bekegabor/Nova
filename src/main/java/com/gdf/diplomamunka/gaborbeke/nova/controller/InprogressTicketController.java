@@ -55,6 +55,10 @@ public class InprogressTicketController {
 
     @Getter
     @Setter
+    private String selectedStatus;
+
+    @Getter
+    @Setter
     private TextEditor textEditor;
 
     @Getter
@@ -103,6 +107,7 @@ public class InprogressTicketController {
         String username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         Optional<User> loggedInEmployee = userService.getUserByUsername(username);
         statuses = Stream.of(Status.values()).map(Status::name).filter(status -> status.equals("CLOSED")).collect(Collectors.toList());
+        statuses.set(0, "Lezárt");
         tickets = ticketService.getInprogressTicketsByEmployee(loggedInEmployee.get());
         previewTypes = new HashMap();
         previewHeaderType = new HashMap();
@@ -155,7 +160,7 @@ public class InprogressTicketController {
     public void saveTicketStatusModifiction() throws IOException {
         String currentUserName = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         FacesContext context = FacesContext.getCurrentInstance();
-        selectedTicket.setStatus(selectedTicket.getStatus());
+        selectedTicket.setStatus(Status.CLOSED);
         selectedTicket.setResolveDate(LocalDateTime.now());
         User currentUser = userService.getUserByUsername(currentUserName).get();
         selectedTicket = ticketService.create(selectedTicket);

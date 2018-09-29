@@ -142,7 +142,7 @@ public class UserTicketsController {
         dataTableTickets.setSelection(selectedTicket);
 
         if(selectedTicket.getStatus().name().equals("CLOSED") || selectedTicket.getStatus().name().equals("IN_PROGRESS")) {
-            message="IN_PROGRESS vagy CLOSED státuszban lévő jegyeket nem lehet törölni!";
+            message="'Folyamatban' vagy 'Lezárt' státuszban lévő jegyeket nem lehet törölni!";
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Hibajegy törlése", message));
             return;
         }

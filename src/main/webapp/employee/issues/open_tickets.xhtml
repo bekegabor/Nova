@@ -25,7 +25,7 @@ xmlns:pe="http://primefaces.org/ui/extensions">
                     </p:column>
 
                     <p:column headerText="Hibajegy státusza" style="text-align: center;">
-                        <h:outputText value="#{ticket.status}" style="color: #2ECC71; font-weight: bold"/>
+                        <h:outputText value="#{userServiceImpl.getUserFriendlyStatus(ticket.status)}" style="color: #2ECC71; font-weight: bold"/>
                     </p:column>
 
                     <p:column headerText="Műveletek" id="editColumn" style="text-align: center;padding-left: 5px;">
@@ -93,7 +93,7 @@ xmlns:pe="http://primefaces.org/ui/extensions">
         <!-- Change ticket status dialog -->
         <h:form id="editTicketStatusForm">
         <p:dialog header="Státusz változtatása" widgetVar="editTicketStatusDialog" id="editTicketStatusDialog" rendered="true" modal="true" resizable="false">
-            <p:selectOneMenu id="statusSelector" value="#{openTicketController.selectedTicket.status}" style="width:180px">
+            <p:selectOneMenu id="statusSelector" value="#{openTicketController.selectedStatus}" style="width:180px">
                 <f:selectItems value="#{openTicketController.statuses}" />
             </p:selectOneMenu>
             <p:commandButton id="saveButton" value="Mentés" action="#{openTicketController.saveTicketStatusModifiction}" oncomplete="PF('editTicketStatusDialog').hide();" style="margin-right: 10px" type="submit" update="ticketsForm:tablePanel, :#{p:component('editErrorGrowlMessages')}" process="@this" partialSubmit="true" ajax="false" validateClient="true"/>

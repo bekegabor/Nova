@@ -27,7 +27,7 @@
                     </p:column>
 
                     <p:column headerText="Hibajegy státusza" style="text-align: center;">
-                        <h:outputText value="#{ticket.status}" style="color: #2ECC71; font-weight: bold"/>
+                        <h:outputText value="#{userServiceImpl.getUserFriendlyStatus(ticket.status)}" style="color: #2ECC71; font-weight: bold"/>
                     </p:column>
 
                     <p:column headerText="Műveletek" id="editColumn" style="text-align: center;padding-left: 5px;">

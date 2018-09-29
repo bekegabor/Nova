@@ -2,7 +2,24 @@ package com.gdf.diplomamunka.gaborbeke.nova.enums;
 
 public enum Role {
 
-    USER("USER"), ADMIN("ADMIN"), EMPLOYEE("EMPLOYEE");
+    USER("USER"){
+        @Override
+        public String getUserFriendlyRole() {
+            return "Felhasználó";
+        }
+    },
+    ADMIN("ADMIN"){
+        @Override
+        public String getUserFriendlyRole() {
+            return "Rendszergazda";
+        }
+    },
+    EMPLOYEE("EMPLOYEE"){
+        @Override
+        public String getUserFriendlyRole() {
+            return "Alkalmazott";
+        }
+    };
 
     private String roleName;
 
@@ -13,4 +30,5 @@ public enum Role {
     public String getRoleName() {
         return roleName;
     }
+    public abstract String getUserFriendlyRole();
 }

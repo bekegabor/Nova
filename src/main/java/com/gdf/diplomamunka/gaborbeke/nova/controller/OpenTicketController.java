@@ -56,6 +56,10 @@ public class OpenTicketController {
 
     @Getter
     @Setter
+    private String selectedStatus;
+
+    @Getter
+    @Setter
     private TextEditor textEditor;
 
     @Getter
@@ -104,6 +108,7 @@ public class OpenTicketController {
         String username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         Optional<User> loggedInEmployee = userService.getUserByUsername(username);
         statuses = Stream.of(Status.values()).map(Status::name).filter(status -> status.equals("IN_PROGRESS")).collect(Collectors.toList());
+        statuses.set(0, "Folyamatban");
         tickets = ticketService.getOpenTicketsByEmployee(loggedInEmployee.get());
         previewTypes = new HashMap();
         previewHeaderType = new HashMap();
@@ -156,7 +161,7 @@ public class OpenTicketController {
     public void saveTicketStatusModifiction() throws IOException {
         String currentUserName = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         FacesContext context = FacesContext.getCurrentInstance();
-        selectedTicket.setStatus(selectedTicket.getStatus());
+        selectedTicket.setStatus(Status.IN_PROGRESS);
         selectedTicket.setModifyDate(LocalDateTime.now());
         User currentUser = userService.getUserByUsername(currentUserName).get();
         selectedTicket = ticketService.create(selectedTicket);

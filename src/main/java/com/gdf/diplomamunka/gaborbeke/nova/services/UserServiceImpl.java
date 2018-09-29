@@ -1,6 +1,7 @@
 package com.gdf.diplomamunka.gaborbeke.nova.services;
 
 import com.gdf.diplomamunka.gaborbeke.nova.enums.Role;
+import com.gdf.diplomamunka.gaborbeke.nova.enums.Status;
 import com.gdf.diplomamunka.gaborbeke.nova.model.User;
 import com.gdf.diplomamunka.gaborbeke.nova.persistance.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -16,11 +20,20 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private Map<String, String> statusDictionary;
 
     @Autowired
     public UserServiceImpl(@Lazy PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+    }
+
+    @PostConstruct
+    public void init(){
+        statusDictionary = new HashMap<>();
+        statusDictionary.put("Beérkezés alatt", Status.PENDING.getStatusName());
+        statusDictionary.put("Folyamatban", Status.IN_PROGRESS.getStatusName());
+        statusDictionary.put("Lezárt", Status.CLOSED.getStatusName());
     }
 
     @Override
@@ -88,6 +101,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> getBlockedUsers() {
         return userRepository.findAllBlockedUsers();
+    }
+
+    @Override
+    public String getUserFriendlyStatus(Status status) {
+        return status.getUserFriendlyStatus();
     }
 
 
