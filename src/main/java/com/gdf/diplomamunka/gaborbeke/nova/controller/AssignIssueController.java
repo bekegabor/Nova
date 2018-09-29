@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
+import org.primefaces.PrimeFaces;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.texteditor.TextEditor;
 import org.primefaces.event.SelectEvent;
@@ -145,9 +146,15 @@ public class AssignIssueController {
     }
 
     public void changeTicketAssigne(Ticket ticket){
+        if (availableEmployees.isEmpty()){
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Jelenleg egy alkalmazott sincs regisztrálva a rendszerben!"));
+            return;
+        }
         this.selectedTicket = selectedTicket;
         selectedTicket = (Ticket) dataTableTickets.getRowData();
         dataTableTickets.setSelection(selectedTicket);
+        PrimeFaces.current().executeScript("PF('assignTicketDialog').show();");
     }
 
     public void saveAssigne(){
@@ -158,7 +165,7 @@ public class AssignIssueController {
         selectedTicket.setModifyDate(LocalDateTime.now());
         selectedTicket = ticketService.create(selectedTicket);
         tickets = ticketService.getUnassignedTickets();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "A "+selectedTicket.getId()+" számú hibajegy hozzá lett rendelve a következő alkalmazotthoz: "+assignedUser.get().getLastname()+" "+assignedUser.get().getFirstname()));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "A "+selectedTicket.getId()+" számú hibajegy hozzá lett rendelve a következő alkalmazotthoz: "+assignedUser.get().getFirstname()+" "+assignedUser.get().getLastname()));
     }
 
 

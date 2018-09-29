@@ -10,6 +10,7 @@
 
     <ui:define name="content">
         <h:form id="ticketsForm">
+            <p:growl id="ticketsFormMessages" showDetail="true" showSummary="false" sticky="false" />
             <p:panel header="Hozzárendelésre váró hibajegyek" id="tablePanel">
                 <p:dataTable id="ticketsTable" binding="#{assignIssueController.dataTableTickets}" value="#{assignIssueController.tickets}" selection="#{assignIssueController.selectedTicket}" var="ticket" emptyMessage="Önnek jelenleg nincs hibajegye!" rowKey="#{ticket.id}" selectionMode="single" rows="10" paginator="true">
                     <p:ajax event="rowSelect" listener="#{assignIssueController.onRowSelect}"/>
@@ -34,7 +35,7 @@
                             <p:resetInput target=":ticketsForm" />
                         </p:commandButton>
 
-                        <p:commandButton action="#{assignIssueController.changeTicketAssigne(ticket)}" oncomplete="PF('assignTicketDialog').show();"  value="Hozzárendelés" title="Szerkesztés"  update=":ticketsForm, :#{p:component('assignTicketForm')}" renderDisabledClick="true" style="padding-right: 5px" immediate="true">
+                        <p:commandButton action="#{assignIssueController.changeTicketAssigne(ticket)}" value="Hozzárendelés" title="Szerkesztés"  update=":ticketsForm, :#{p:component('assignTicketForm')}, :#{p:component('ticketsFormMessages')}" renderDisabledClick="true" style="padding-right: 5px" immediate="true">
                         </p:commandButton>
 
                     </p:column>

@@ -165,7 +165,7 @@ public class InprogressTicketController {
         User currentUser = userService.getUserByUsername(currentUserName).get();
         selectedTicket = ticketService.create(selectedTicket);
         currentUser.addTicket(selectedTicket);
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "A "+selectedTicket.getId()+" számú hibajegy státusza sikeresen megváltozott! Az új státusz: "+selectedTicket.getStatus()));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "A "+selectedTicket.getId()+" számú hibajegy státusza sikeresen megváltozott! Az új státusz: "+selectedTicket.getStatus().getUserFriendlyStatus()));
         context.getExternalContext().getFlash().setKeepMessages(true);
         context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath()+"/employee/issues/closed");
     }
