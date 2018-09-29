@@ -11,14 +11,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.*;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -94,12 +96,22 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<String> readTextFileFromClasspath(Path path) throws IOException {
-        StringBuilder data = new StringBuilder();
-        Stream<String> lines = Files.lines(path);
-        List<String> helpContent = lines.collect(Collectors.toList());
-        lines.close();
+    public List<String> readTextFileFromClasspath() throws IOException, URISyntaxException {
 
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream("ConsoleCommands.txt");
+        List<String> helpContent = readFromInputStream(inputStream);
+        return helpContent;
+    }
+    private List<String> readFromInputStream(InputStream inputStream)throws IOException {
+        List<String> helpContent = new ArrayList<>();
+        try (BufferedReader br
+                     = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                helpContent.add(line);
+            }
+        }
         return helpContent;
     }
 }

@@ -4,6 +4,7 @@ import org.primefaces.model.UploadedFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -22,6 +23,6 @@ public interface FileService {
     UploadedFile getUploadedFile();
     void setUploadedFile(UploadedFile uploadedFile);
     String getErrorMessage();
-    List<String> readTextFileFromClasspath(Path path) throws IOException;
+    List<String> readTextFileFromClasspath() throws IOException, URISyntaxException;
 
 }

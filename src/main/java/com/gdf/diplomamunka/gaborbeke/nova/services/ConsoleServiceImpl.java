@@ -48,9 +48,7 @@ public class ConsoleServiceImpl implements ConsoleService{
 
     @Override
     public List<String> listAvailableCommands() throws URISyntaxException, IOException {
-        Path path = Paths.get(getClass().getClassLoader().getResource("ConsoleCommands.txt").toURI());
-        List<String> availableCommands = fileService.readTextFileFromClasspath(path);
-        return availableCommands;
+        return fileService.readTextFileFromClasspath();
     }
 
     @Override
