@@ -236,11 +236,16 @@ public class UserTicketsController {
         return jpegContent;
     }
 
+    public String getUserFriendlyStatus(Status status){
+        return userService.getUserFriendlyStatus(status);
+    }
+
     private Boolean isEditorContainsOnlyEmptyHtml(){
         String content = selectedTicket.getContent();
         content = content.replaceAll("&nbsp;","").replaceAll("<p>|</p>|<br>|</br>|<div>|</div>|\t|\r|\n","");
         selectedTicket.setContent(content);
         return selectedTicket.getContent().trim().length() == 0;
     }
+
     }
 

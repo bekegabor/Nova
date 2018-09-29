@@ -1,6 +1,7 @@
 package com.gdf.diplomamunka.gaborbeke.nova.controller;
 
 
+import com.gdf.diplomamunka.gaborbeke.nova.enums.Status;
 import com.gdf.diplomamunka.gaborbeke.nova.model.Ticket;
 import com.gdf.diplomamunka.gaborbeke.nova.model.User;
 import com.gdf.diplomamunka.gaborbeke.nova.services.FileService;
@@ -166,6 +167,10 @@ public class ClosedTicketsController {
         if (jpegContent != null)
             jpegContent.getStream().reset(); //reset stream to the start position!
         return jpegContent;
+    }
+
+    public String getUserFriendlyStatus(Status status){
+        return userService.getUserFriendlyStatus(status);
     }
 
 }

@@ -201,4 +201,8 @@ public class OpenTicketController {
             jpegContent.getStream().reset(); //reset stream to the start position!
         return jpegContent;
     }
+
+    public String getUserFriendlyStatus(Status status){
+        return userService.getUserFriendlyStatus(status);
+    }
 }
