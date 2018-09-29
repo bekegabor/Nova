@@ -1,6 +1,7 @@
 package com.gdf.diplomamunka.gaborbeke.nova.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,8 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
@@ -82,6 +86,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .successHandler(myAuthenticationSuccessHandler())
             .failureUrl("/login.xhtml?error=true");
 
+        //allow only 1 user with the same account to login
+        http.sessionManagement()
+            .maximumSessions(1)
+            .maxSessionsPreventsLogin(true)
+            .sessionRegistry(sessionRegistry());
+
     // logout
         http.logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -104,5 +114,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public UserDetailsService userDetailsService() {
     return super.userDetailsService();
+  }
+
+  @Bean
+  public SessionRegistry sessionRegistry() {
+    SessionRegistry sessionRegistry = new SessionRegistryImpl();
+    return sessionRegistry;
+  }
+
+  // Register HttpSessionEventPublisher
+  @Bean
+  public static ServletListenerRegistrationBean httpSessionEventPublisher() {
+    return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
   }
 }
