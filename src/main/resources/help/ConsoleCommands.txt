@@ -1,0 +1,20 @@
+Felhasználói fiók tiltása:
+block-user felhasználónév vagy bu felhasználónév
+
+Felhasználó fiók engedélyezése:
+unblock-user felhasználónév vagy uu felhasználónév
+
+Felhasználói jogosultság megváltoztatása (A három lehetséges jogosultság szint: ADMIN, EMPLOYEE, USER)
+grant-role felhasználónév jogosultság vagy gr felhasználónév jogosultság
+
+Összes alkalmazott kilistázása:
+list-employees vagy le
+
+Összes felhasználó kilistázása:
+list-users vagy lu
+
+Blokkolt felhasználók kilistázása:
+list-blocked-users vagy lbu
+
+Hibajegyekről statisztika készítése
+create-statistics vagy cs
