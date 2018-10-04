@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Blob;
@@ -56,6 +57,7 @@ public class Ticket {
     private User user;
 
     @Column(nullable = true)
+    @Type(type="text")
     @Getter
     @Setter
     private String content;
@@ -90,6 +92,7 @@ public class Ticket {
           this.attachment.setAttachment(null);
         }else{
             attachment.setTicket(this);
+            attachment.setId(this.getId());
         }
         this.attachment = attachment;
     }

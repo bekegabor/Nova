@@ -3,6 +3,7 @@ package com.gdf.diplomamunka.gaborbeke.nova.services;
 
 import com.gdf.diplomamunka.gaborbeke.nova.datatransferobjects.ContactDTO;
 import com.gdf.diplomamunka.gaborbeke.nova.datatransferobjects.TicketStatisticDTO;
+import com.gdf.diplomamunka.gaborbeke.nova.model.Attachment;
 import com.gdf.diplomamunka.gaborbeke.nova.model.Ticket;
 import com.gdf.diplomamunka.gaborbeke.nova.model.User;
 import org.primefaces.model.UploadedFile;
@@ -23,4 +24,5 @@ public interface TicketService {
     List<Ticket>getTicketsByEmployee(User user);
     List<ContactDTO>getContactsForEmployeeTicketsById(User user);
     List<Ticket>getUnassignedTickets();
+    void saveAttachment(Attachment attachment);
 }

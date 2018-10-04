@@ -42,7 +42,7 @@ public class BindedPasswordValidator implements Validator {
 
         PasswordValidator passwordMinimumLengthValidator = new PasswordValidator ("A jelszónak minimum 8 karakterből kell állnia!",password -> (((Password)password).getPassword()).length()<8);
         PasswordValidator passswordMaximumLengthValidator = new PasswordValidator("A jelszó maximum 30 karakterből állhat!", credential -> (((Password)credential).getPassword().length()>30));
-        PasswordValidator passwordContainsLowerUpperDigitAndSymbolCharactersValidator = new PasswordValidator("A jelszónak tartalmaznia kell kisbetűt, nagybetűt, számot és speciális karaktert!", credential -> !(((Password)credential).getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*(_|[^\\w])).+$")));
+        PasswordValidator passwordContainsLowerUpperDigitAndSymbolCharactersValidator = new PasswordValidator("A jelszónak tartalmaznia kell legalább kisbetűt, nagybetűt és számot!", credential -> !(((Password)credential).getPassword().matches("^(?=.*[a-z])(?=.*[A-Z]).+$")));
         PasswordValidator passwordContainsOnlyWhitespaces = new PasswordValidator("A jelszó nem tartalmazhat szóközt!", credential -> (((Password)credential).getPassword().trim().length()==0));
         PasswordValidator passwordContainsWhitespaces = new PasswordValidator("A jelszó nem tartalmazhat szóközt!", credential -> (((Password)credential).getPassword().trim().length()!=(((Password)credential).getPassword().length())));
         passwordValidators = Arrays.asList(passwordMinimumLengthValidator, passswordMaximumLengthValidator, passwordContainsLowerUpperDigitAndSymbolCharactersValidator, passwordContainsOnlyWhitespaces, passwordContainsWhitespaces);

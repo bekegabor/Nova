@@ -4,6 +4,7 @@ package com.gdf.diplomamunka.gaborbeke.nova.services;
 import com.gdf.diplomamunka.gaborbeke.nova.datatransferobjects.ContactDTO;
 import com.gdf.diplomamunka.gaborbeke.nova.datatransferobjects.TicketStatisticDTO;
 import com.gdf.diplomamunka.gaborbeke.nova.enums.Status;
+import com.gdf.diplomamunka.gaborbeke.nova.model.Attachment;
 import com.gdf.diplomamunka.gaborbeke.nova.model.Ticket;
 import com.gdf.diplomamunka.gaborbeke.nova.model.User;
 import com.gdf.diplomamunka.gaborbeke.nova.persistance.AttachmentRepository;
@@ -76,6 +77,11 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<Ticket> getUnassignedTickets() {
         return ticketRepository.findAllByEmployeeIdIsNull();
+    }
+
+    @Override
+    public void saveAttachment(Attachment attachment) {
+        attachmentRepository.save(attachment);
     }
 
 }

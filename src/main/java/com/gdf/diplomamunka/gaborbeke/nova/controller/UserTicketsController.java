@@ -133,6 +133,22 @@ public class UserTicketsController {
         selectedTicket = currentTicket;
     }
 
+    public void onRowDblClckSelect(SelectEvent event) {
+        Ticket currentTicket = (Ticket) event.getObject();
+        this.selectedTicket = currentTicket;
+        dataTableTickets.setSelection(selectedTicket);
+        if (Objects.nonNull(selectedTicket.getAttachment()) && selectedTicket.getAttachment().getFileSize() > 1){
+            this.isPreviewDisabled = false;
+            String fileType = StringUtils.getFilenameExtension(selectedTicket.getAttachment().getFileName());
+            dialogToExecute = previewTypes.get(fileType);
+            dialogHeaderTypeToModify = previewHeaderType.get(fileType);
+        }else{
+            this.isPreviewDisabled = true;
+        }
+
+        PrimeFaces.current().executeScript("PF('editTicketDialog').show();");
+    }
+
     public void deleteTicket(ActionEvent ev) {
         FacesContext context = FacesContext.getCurrentInstance();
         String currentUserName = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
@@ -157,7 +173,7 @@ public class UserTicketsController {
         this.selectedTicket = selectedTicket;
         selectedTicket = (Ticket) dataTableTickets.getRowData();
         dataTableTickets.setSelection(selectedTicket);
-        if (Objects.nonNull(selectedTicket.getAttachment())){
+        if (Objects.nonNull(selectedTicket.getAttachment()) && selectedTicket.getAttachment().getFileSize() > 1){
             this.isPreviewDisabled = false;
             String fileType = StringUtils.getFilenameExtension(selectedTicket.getAttachment().getFileName());
             dialogToExecute = previewTypes.get(fileType);

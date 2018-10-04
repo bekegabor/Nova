@@ -10,6 +10,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title><ui:insert name="title"></ui:insert></title>
+        <h:outputStylesheet library="css" name="growl.css"  />
     </h:head>
     <h:body style="background-color: gainsboro">
         <p:growl id="message" showDetail="true" showSummary="false" life="3000" redisplay="false"/>
@@ -29,7 +30,7 @@
                         <f:facet name="options">
                             <p:button value="Kezdőképernyő" ajax="false" icon="ui-icon-home" href="/employee/home.xhtml"/>
                             <p:menuButton value="Beállítások" style="margin-right: 5px" icon="ui-icon-gear">
-                                <p:menuitem value="Felhasználó fiók" outcome="/userprofile/userprofile.xhtml"  icon="ui-icon-disk"/>
+                                <p:menuitem value="Felhasználó fiók" outcome="/employeeprofile/employeeprofile.xhtml"  icon="ui-icon-disk"/>
                             </p:menuButton>
                             <p:button value="Kijelentkezés" ajax="false" icon="ui-icon-extlink" href="/logout" style="margin-right: 5px"/>
                         </f:facet>

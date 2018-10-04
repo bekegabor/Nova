@@ -62,6 +62,12 @@ public class NewTicketController {
                 attachment.setFileSize(uploadedFile.getSize());
                 attachment.setUploadedOn(LocalDateTime.now());
                 ticket.setAttachment(attachment);
+            }else{//set dummy attachment
+                Attachment attachment = new Attachment();
+                attachment.setFileName("");
+                attachment.setFileSize(1);
+                attachment.setUploadedOn(LocalDateTime.now());
+                ticket.setAttachment(attachment);
             }
 
             ticket.setStatus(Status.PENDING);

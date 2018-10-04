@@ -19,7 +19,7 @@ import java.io.IOException;
 @Scope("session")
 @Component(value = "userProfileController")
 @ELBeanName(value = "userProfileController")
-@Join(path = "/userprofile", to = "/userprofile/userprofile.xhtml")
+@Join(path = "/user/profile", to = "/userprofile/userprofile.xhtml")
 public class UserProfileController {
 
     private User user = new User();
@@ -44,7 +44,7 @@ public class UserProfileController {
             userService.updateUser(user);
             context.addMessage(null, new FacesMessage("", "A jelszó sikeresen meg lett változtatva!") );
             context.getExternalContext().getFlash().setKeepMessages(true);
-            context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath());
+            context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath()+"/user/home.xhtml");
         }
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "A jelszó változtatás sikertelen volt! "+registrationValidationService.getErrorMessage()));
     }

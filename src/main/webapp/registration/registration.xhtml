@@ -4,6 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:pe="http://primefaces.org/ui/extensions">
 
 <h:head>
@@ -22,21 +23,23 @@
 
                 <h:panelGrid columns="1"  cellpadding="1" layout="grid" columnClasses="label, value" style=" width: 370px" id="registerGrid" >
                     <h:outputText value="Vezetéknév: *" />
-                    <p:inputText id="firstname" value="#{registrationController.user.firstname}" required="true" requiredMessage="A vezetéknév megadása kötelező!"  label="Vezetéknév" size="40" validatorMessage="A szóköz nem elfogadott érték!">
-                        <f:validateRegex pattern="[^ ]*" />
+                    <p:inputText id="firstname" pt:data-tooltip="" value="#{registrationController.user.firstname}" title="Nagy kezdőbetűvel, felesleges szóköz nélkül, kötőjel megengedett" required="true" requiredMessage="A vezetéknév megadása kötelező!"  label="Vezetéknév" size="40" validatorMessage="Érvénytelen vezetéknév!">
+                        <f:validateRegex pattern="^(?!\s*$)[A-ZÁÉÍÓÖŐÚÜŰ]{1}[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ]*[-\s]?[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ]{1,}+$" />
                     </p:inputText>
+                    <p:tooltip id="toolTipFirstName" for="firstname" showEvent="focus" hideEvent="blur" />
                     <p:message for="firstname" />
                     <h:outputText value="#{registrationController.user.firstname}" />
 
                     <h:outputText value="Keresztnév: *" />
-                    <p:inputText id="lastname" value="#{registrationController.user.lastname}" required="true" requiredMessage="A keresztnév megadása kötelező!"  label="Keresztnév" size="40" validatorMessage="A szóköz nem elfogadott érték!">
-                        <f:validateRegex pattern="[^ ]*" />
+                    <p:inputText id="lastname" value="#{registrationController.user.lastname}" required="true" title="Nagy kezdőbetűvel, felesleges szóköz nélkül, kötőjel megengedett"  requiredMessage="A keresztnév megadása kötelező!"  label="Keresztnév" size="40" validatorMessage="Érvénytelen keresztnév!">
+                        <f:validateRegex pattern="^(?!\s*$)[A-ZÁÉÍÓÖŐÚÜŰ]{1}[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ]*[-\s]?[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ]{1,}+$" />
                     </p:inputText>
+                    <p:tooltip id="toolTipLastName" for="lastname" showEvent="focus" hideEvent="blur" />
                     <p:message for="lastname" />
                     <h:outputText value="#{registrationController.user.lastname}" />
 
                     <h:outputText value="Születési dátum: *" />
-                    <p:calendar locale="hu" navigator="true" value="#{registrationController.user.dateofbirth}" styleClass="dateTimeField" id="dateofbirth" required="true" requiredMessage="A születési dátum megadása kötelező!" placeholder="Év-Hónap-Nap" pattern="yyyy-MM-dd" mask="true">
+                    <p:calendar locale="hu"  navigator="true" yearRange="c-100:c-18"  value="#{registrationController.user.dateofbirth}" styleClass="dateTimeField" id="dateofbirth" required="true" requiredMessage="A születési dátum megadása kötelező!" placeholder="Év-Hónap-Nap" pattern="yyyy-MM-dd" mask="true">
                         <f:validator binding="#{bindedCalendarValidator}" />
                         <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
                     </p:calendar>
@@ -49,21 +52,25 @@
                     <input name="dummypassword" type="password" id="dummypassword" style="display: none"/>
 
                     <h:outputText value="Felhasználónév: *" />
-                    <p:inputText value="#{registrationController.user.username}" required="true" requiredMessage="A felhasználónév megadása kötelező!" label="Felhasználónév" size="40" id="username" validatorMessage="A szóköz nem elfogadott érték!">
+                    <p:inputText value="#{registrationController.user.username}"  required="true" requiredMessage="A felhasználónév megadása kötelező!" pt:data-tooltip="" title="Hosszúság: Min:4, Max:30" label="Felhasználónév" size="40" id="username" validatorMessage="Érvénytelen felhasználónév!">
                         <f:validateRegex pattern="[^ ]*" />
+                        <f:validateLength minimum="4" maximum="30"/>
                     </p:inputText>
+                    <p:tooltip id="toolTipUsername" for="username" showEvent="focus" hideEvent="blur" />
                     <p:message for="username" />
                     <h:outputText value="#{registrationController.user.username}" />
 
                     <h:outputText value="Jelszó: *" />
-                    <p:password value="#{registrationController.user.password}" required="true" requiredMessage="A jelszó megadása kötelező!" label="Jelszó" match="passwordAgain" validatorMessage="A két jelszó nem egyezik!" size="40" id="password">
+                    <p:password value="#{registrationController.user.password}"  pt:data-tooltip="" title="Hosszúság: Min:8, Max:30. Tartalmaznia kell: kis- és nagybetűt, számot!" required="true" requiredMessage="A jelszó megadása kötelező!" label="Jelszó" match="passwordAgain" validatorMessage="A két jelszó nem egyezik!" size="40" id="password">
                         <f:validator binding="#{bindedPasswordValidator}" />
                     </p:password>
+                    <p:tooltip id="toolTipPassword" for="password" showEvent="focus" hideEvent="blur" />
                     <p:message for="password" />
                     <h:outputText value="#{registrationController.user.password}" />
 
                     <h:outputText value="Jelszó mégegyszer: *" />
-                    <p:password value="#{registrationController.passwordAgain}" required="true" label="Jelszó mégegyszer" requiredMessage="A jelszó újra megadása kötelező!" size="40" id="passwordAgain" />
+                    <p:password value="#{registrationController.passwordAgain}" required="true" label="Jelszó mégegyszer" pt:data-tooltip="" title="Kérem adja meg újra a jelszavát!" requiredMessage="A jelszó újra megadása kötelező!" size="40" id="passwordAgain" />
+                    <p:tooltip id="toolTipPasswordAgain" for="passwordAgain" showEvent="focus" hideEvent="blur" />
                     <p:message for="passwordAgain"/>
                     <h:outputText value="#{registrationController.passwordAgain}" />
 

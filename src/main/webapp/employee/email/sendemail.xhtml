@@ -8,6 +8,13 @@
       xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/employee/home.xhtml">
     <ui:define name="content">
+        <h:head>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <h:outputStylesheet library="css" name="growl.css"  />
+            <title><ui:insert name="title"></ui:insert></title>
+        </h:head>
         <h:form id="emailForm">
             <p:growl id="sendEmailMessage" showDetail="true" showSummary="false" autoUpdate="true"/>
             <p:panel header="Email küldés" id="emailPanel">

@@ -69,13 +69,20 @@ public class ConsoleController {
         ConsoleCommand createStatistics = new CreateStatisticsConsoleCommand(params, consoleService);
         ConsoleCommand listBlockedUsers = new ListBlockedUsersConsoleCommand(params, consoleService);
         commandsMap.put("block-user", blockUser);
+        commandsMap.put("bu", blockUser);
         commandsMap.put("unblock-user", unblockUser);
+        commandsMap.put("uu", unblockUser);
         commandsMap.put("grant-role", grantUserRole);
+        commandsMap.put("gr", grantUserRole);
         commandsMap.put("help", help);
         commandsMap.put("list-employees", listEmployees);
+        commandsMap.put("le", listEmployees);
         commandsMap.put("list-users", listUsers);
+        commandsMap.put("lu", listUsers);
         commandsMap.put("create-statistics", createStatistics);
+        commandsMap.put("cs", createStatistics);
         commandsMap.put("list-blocked-users", listBlockedUsers);
+        commandsMap.put("lbu", listBlockedUsers);
     }
 
     @Deferred
@@ -103,11 +110,12 @@ public class ConsoleController {
 
     private Boolean isValidParameter(String[] params, String command) {
         try {
-            if ("help".equals(command) || "list-employees".equals(command) || "list-users".equals(command) || "create-statistics".equals(command) || "list-blocked-users".equals(command)) {
+            if ("help".equals(command) || "list-employees".equals(command) || "list-users".equals(command) || "create-statistics".equals(command) || "list-blocked-users".equals(command)
+                    || "cs".equals(command) || "le".equals(command) || "lu".equals(command) || "lbu".equals(command)) {
                 return true;
             }
 
-            if ("grant-role".equals(command)) {
+            if ("grant-role".equals(command) || "gr".equals(command)) {
                 if (params[0].trim().length() > 0 && params[1].trim().length() > 0) {
                     return true;
                 }

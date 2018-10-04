@@ -7,13 +7,20 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:pe="http://primefaces.org/ui/extensions">
 <ui:composition template="/admin/home.xhtml">
-
     <ui:define name="content">
+        <h:head>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <h:outputStylesheet library="css" name="growl.css"  />
+            <title><ui:insert name="title"></ui:insert></title>
+        </h:head>
         <h:form id="ticketsForm">
             <p:growl id="ticketsFormMessages" showDetail="true" showSummary="false" sticky="false" />
             <p:panel header="Hozzárendelésre váró hibajegyek" id="tablePanel">
                 <p:dataTable id="ticketsTable" binding="#{assignIssueController.dataTableTickets}" value="#{assignIssueController.tickets}" selection="#{assignIssueController.selectedTicket}" var="ticket" emptyMessage="Önnek jelenleg nincs hibajegye!" rowKey="#{ticket.id}" selectionMode="single" rows="10" paginator="true">
                     <p:ajax event="rowSelect" listener="#{assignIssueController.onRowSelect}"/>
+                    <p:ajax event="rowDblselect" listener="#{assignIssueController.onRowDblClckSelect}"  global="false" />
                     <p:column headerText="Id" >
                         <h:outputText value="#{ticket.id}" />
                     </p:column>
@@ -70,7 +77,7 @@
 
             <p:panel>
                 <p:button value="Bezárás"  styleClass="ui-button-text ui-c" style="margin-right: 10px" includeViewParams="true" />
-                <p:commandButton value="Melléklet megtekintése" oncomplete="#{assignIssueController.dialogToExecute}" update="#{assignIssueController.dialogHeaderTypeToModify}" style="margin-right: 10px" disabled="#{openTicketController.isPreviewDisabled}"/>
+                <p:commandButton value="Melléklet megtekintése" oncomplete="#{assignIssueController.dialogToExecute}" update="#{assignIssueController.dialogHeaderTypeToModify}" style="margin-right: 10px" disabled="#{assignIssueController.isPreviewDisabled}"/>
             </p:panel>
         </p:dialog>
 

@@ -10,6 +10,16 @@
 <ui:composition template="/user/home.xhtml">
 
     <ui:define name="content">
+
+
+        <h:head>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <h:outputStylesheet library="css" name="growl.css"  />
+            <title><ui:insert name="title"></ui:insert></title>
+        </h:head>
+
         <h:form id="ticketsForm">
             <p:growl id="ticketsFormGrowlMessages" showDetail="true" showSummary="false" autoUpdate="true"/>
             <p:panel header="Hibajegyeim" id="tablePanel">
@@ -24,6 +34,7 @@
                              paginator="true">
 
                     <p:ajax event="rowSelect" listener="#{userTicketsController.onRowSelect}"/>
+                    <p:ajax event="rowDblselect" listener="#{userTicketsController.onRowDblClckSelect}"  global="false" />
                     <p:column headerText="Id" >
                         <h:outputText value="#{ticket.id}" />
                     </p:column>
@@ -36,7 +47,7 @@
                         <h:outputText value="#{ticket.attachment.fileName}" />
                     </p:column>
 
-                    <p:column headerText="Hibajegy státusza" style="text-align: center;">
+                    <p:column headerText="Hibajegy státusza" style="text-align: center;" >
                         <h:outputText value="#{userTicketsController.getUserFriendlyStatus(ticket.status)}" style="color: #2ECC71; font-weight: bold"/>
                     </p:column>
 
