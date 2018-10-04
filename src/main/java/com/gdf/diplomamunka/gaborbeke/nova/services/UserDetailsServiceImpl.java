@@ -2,6 +2,7 @@ package com.gdf.diplomamunka.gaborbeke.nova.services;
 
 import com.gdf.diplomamunka.gaborbeke.nova.model.User;
 import com.gdf.diplomamunka.gaborbeke.nova.persistance.UserRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserDetailsServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserDetailsServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
