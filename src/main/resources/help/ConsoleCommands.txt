@@ -1,20 +1,20 @@
 Felhasználói fiók tiltása:
-block-user felhasználónév vagy bu felhasználónév
+block-user felhasználónév (rövid parancs: bu felhasználónév)
 
 Felhasználó fiók engedélyezése:
-unblock-user felhasználónév vagy uu felhasználónév
+unblock-user felhasználónév (rövid parancs: uu felhasználónév)
 
 Felhasználói jogosultság megváltoztatása (A három lehetséges jogosultság szint: ADMIN, EMPLOYEE, USER)
-grant-role felhasználónév jogosultság vagy gr felhasználónév jogosultság
+grant-role felhasználónév jogosultság (rövid parancs: gr felhasználónév jogosultság)
 
 Összes alkalmazott kilistázása:
-list-employees vagy le
+list-employees (rövid parancs: le)
 
 Összes felhasználó kilistázása:
-list-users vagy lu
+list-users (rövid parancs: lu)
 
 Blokkolt felhasználók kilistázása:
-list-blocked-users vagy lbu
+list-blocked-users (rövid parancs: lbu)
 
 Hibajegyekről statisztika készítése
-create-statistics vagy cs
+create-statistics (rövid parancs: cs)
