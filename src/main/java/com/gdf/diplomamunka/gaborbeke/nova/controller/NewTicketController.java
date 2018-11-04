@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -46,8 +47,12 @@ public class NewTicketController {
 
     public void save() throws SQLException, IOException, InterruptedException {
         String currentUserName = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+        FacesContext context = FacesContext.getCurrentInstance();
+        if(context.getMessageList().size()!=0){
+            return;
+        }
+
         if (isEditorContainsOnlyEmptyHtml()){
-            FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "A szóköz nem elfogadott érték!"));
             return;
         }
@@ -73,7 +78,6 @@ public class NewTicketController {
             ticket.setStatus(Status.PENDING);
             ticket.setCreateDate(LocalDateTime.now());
             User currentUser = userService.getUserByUsername(currentUserName).get();
-            FacesContext context = FacesContext.getCurrentInstance();
             if (uploadedFile.getFileName().equals("") || fileService.isValidFileType()){
                 currentUser.addTicket(ticket);
                 ticketService.create(ticket);
@@ -86,7 +90,6 @@ public class NewTicketController {
             ticket.setStatus(Status.PENDING);
             ticket.setCreateDate(LocalDateTime.now());
             User currentUser = userService.getUserByUsername(currentUserName).get();
-            FacesContext context = FacesContext.getCurrentInstance();
             currentUser.addTicket(ticket);
             ticketService.create(ticket);
             ExternalContext externalContext = context.getExternalContext();

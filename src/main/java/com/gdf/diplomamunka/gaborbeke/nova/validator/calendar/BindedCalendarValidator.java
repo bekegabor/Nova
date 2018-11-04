@@ -17,7 +17,7 @@ import java.util.List;
 @ManagedBean
 public class BindedCalendarValidator implements Validator {
 
-    private LocalDate minimumDate = LocalDate.now().minusYears(100);
+    private LocalDate minimumDate = LocalDate.now().minusYears(138);
     private LocalDate maximumDate = LocalDate.now().minusYears(18);
     private Integer minimumYearsFromNow;
     private Integer maximumYearsFromNow;
@@ -39,7 +39,7 @@ public class BindedCalendarValidator implements Validator {
     }
 
         private List<DateOfBirthValidator> getPasswordValidators() {
-            DateOfBirthValidator dateofBirthValidator = new DateOfBirthValidator("A rendszerbe 18 és 100 év közötti korral lehet regisztrálni!", dateOfBirth -> dateOfBirth.getDateOfBirth().isBefore(minimumDate) || dateOfBirth.getDateOfBirth().isAfter(maximumDate));
+            DateOfBirthValidator dateofBirthValidator = new DateOfBirthValidator("A rendszerbe minimum 18 éves korral lehet regisztrálni!", dateOfBirth ->  dateOfBirth.getDateOfBirth().isAfter(maximumDate));
             return Arrays.asList(dateofBirthValidator);
         }
 

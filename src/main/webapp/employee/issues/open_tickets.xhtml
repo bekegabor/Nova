@@ -95,7 +95,7 @@ xmlns:pe="http://primefaces.org/ui/extensions">
             <f:facet name="header">
                 <h:outputText id="jpegAttachmentPreviewDialogHeader" value="#{openTicketController.selectedTicket.attachment.fileName}"/>
             </f:facet>
-            <p:graphicImage value="#{openTicketController.jpegAttachmentForPreview}" stream="true"/>
+            <p:graphicImage value="#{openTicketController.jpegAttachmentForPreview}" stream="true" cache="false"/>
         </p:dialog>
 
         <!-- Change ticket status dialog -->

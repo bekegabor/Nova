@@ -33,7 +33,7 @@
                          'TextColor','Link','Unlink','-','RemoveFormat']]"/>
 
                     <p:outputLabel value="Mellékletek feltöltése: " />
-                    <p:fileUpload value="#{newTicketController.uploadedFile}" auto="false" mode="simple" dragDropSupport="false" update="newTicketMessages" id="fileUpload" required="false">
+                    <p:fileUpload value="#{newTicketController.uploadedFile}" auto="false" mode="simple" dragDropSupport="false" update="newTicketMessages" id="fileUpload" required="false" sizeLimit="5000000" invalidSizeMessage="A megengedett méret 1 MB">
                         <f:validator binding="#{bindedUploadedFileValidator}" />
                     </p:fileUpload>
                     <p:commandButton value="Elküldés" action="#{newTicketController.save()}" styleClass="ui-priority-primary" validateClient="true" update="newTicketMessages" life="1500" ajax="false"/>

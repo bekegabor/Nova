@@ -88,8 +88,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //allow only 1 user with the same account to login
         http.sessionManagement()
+            .sessionFixation().migrateSession()
             .maximumSessions(1)
-            .maxSessionsPreventsLogin(true)
+            .expiredUrl("/logout?timeout")
             .sessionRegistry(sessionRegistry());
 
     // logout

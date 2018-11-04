@@ -96,7 +96,7 @@
             <f:facet name="header">
                 <h:outputText id="jpegAttachmentPreviewDialogHeader" value="#{closedTicketsController.selectedTicket.attachment.fileName}"/>
             </f:facet>
-            <p:graphicImage value="#{closedTicketsController.jpegAttachmentForPreview}" stream="true"/>
+            <p:graphicImage value="#{closedTicketsController.jpegAttachmentForPreview}" stream="true" cache="false"/>
         </p:dialog>
 
     </ui:define>
